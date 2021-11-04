@@ -1,4 +1,5 @@
-FilmFlokk/node_modules/
+node_modules/
+.idea
 .expo/
 dist/
 npm-debug.*
