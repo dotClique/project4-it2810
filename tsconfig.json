@@ -9,10 +9,10 @@
       "components/*": ["./src/components/*"],
       "helpers/*": ["./src/helpers/*"],
       "pages/*": ["./src/pages/*"],
-      "types/*": ["./src/types/*"],
+      "types/*": ["./src/types/*"]
     },
     "jsx": "react-native"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "./App.tsx"],
   "exclude": ["node_modules", "**/*.spec.js", "**/*.spec.ts"]
 }
