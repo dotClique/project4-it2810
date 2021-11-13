@@ -5,30 +5,14 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "src/*": [
-        "./src/*"
-      ],
-      "components/*": [
-        "./src/components/*"
-      ],
-      "helpers/*": [
-        "./src/helpers/*"
-      ],
-      "pages/*": [
-        "./src/pages/*"
-      ],
-      "types/*": [
-        "./src/types/*"
-      ]
+      "src/*": ["./src/*"],
+      "components/*": ["./src/components/*"],
+      "helpers/*": ["./src/helpers/*"],
+      "pages/*": ["./src/pages/*"],
+      "types/*": ["./src/types/*"],
     },
     "jsx": "react-native"
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.js",
-    "**/*.spec.ts"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.js", "**/*.spec.ts"]
 }
