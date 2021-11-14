@@ -1,6 +1,16 @@
+import {
+  FetchResult,
+  LazyQueryResult,
+  MutationFunctionOptions,
+  MutationResult,
+  QueryLazyOptions,
+  useLazyQuery,
+  useMutation,
+} from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { useCallback } from "react";
+import { DocumentNode } from "graphql";
+import { useCallback, useEffect } from "react";
 import { ParamList } from "../types/navigation";
 import { PopupParams } from "./types";
 
@@ -22,10 +32,69 @@ export const usePopup = () => {
  * Hook to simplify the usePopup hook when it is used to display errors.
  * @returns A function to navigate to the alert type PopupPage with an error message.
  */
-export const useError = () => {
+export const useErrorPopup = () => {
   const popup = usePopup();
   return useCallback(
     (message: string) => popup({ title: "An Error Occurred", message, type: "alert" }),
     [popup],
   );
 };
+
+/**
+ * An implementation of the useMutation hook from apollo to include error handling.
+ * @param mutationCall The graphql request.
+ * @param onCompleted The function to be run when the call is completed successfully.
+ * @param variables Default request variables. Will be overridden if you pass the variables using the call function.
+ * @returns
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useMutationCall<DataType = any, Variables = any>(
+  mutationCall: DocumentNode,
+  onCompleted?: (data?: DataType) => void,
+  variables?: Variables,
+): [
+  (options?: MutationFunctionOptions<DataType, Variables>) => Promise<FetchResult<DataType>>,
+  MutationResult<DataType>,
+] {
+  const showErr = useErrorPopup();
+  const [performCall, result] = useMutation<DataType, Variables>(mutationCall, {
+    onCompleted,
+    onError: (error) => showErr(error.message),
+    variables: variables,
+  });
+
+  return [performCall, result];
+}
+
+/**
+ * An implementation of the useQuery hook from apollo to include error handling.
+ * @param mutationCall The graphql request.
+ * @param lazy If the call should be lazy. Set to true if the call should not be performed immediately. Is by default false.
+ * @param onCompleted The funciton to be run when the call is completed successfully.
+ * @param variables Default request variables. Will be overridden if you pass the variables using the call function.
+ * @returns
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useQueryCall<DataType, Variables = { [key: string]: any }>(
+  mutationCall: DocumentNode,
+  lazy = false,
+  onCompleted?: (data?: DataType) => void,
+  variables?: Variables,
+): [
+  (options?: QueryLazyOptions<Variables> | undefined) => void,
+  LazyQueryResult<DataType, Variables>,
+] {
+  const showErr = useErrorPopup();
+  const [performCall, result] = useLazyQuery<DataType, Variables>(mutationCall, {
+    onCompleted,
+    onError: (error) => showErr(error.message),
+    variables: variables,
+  });
+
+  // If the call should not be lazy, perform the call immediately.
+  useEffect(() => {
+    if (!lazy) performCall();
+  }, []);
+
+  return [performCall, result];
+}
