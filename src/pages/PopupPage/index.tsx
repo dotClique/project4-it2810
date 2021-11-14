@@ -23,7 +23,7 @@ export default function PopupPage({ route, navigation }: PopupPageProps) {
           <View>{params.content}</View>
         </Card.Content>
         <Card.Actions style={styles.actions}>
-          {!params.disableClose && (
+          {!params.disableClose && params.type === "confirm" && (
             <Button mode="text" onPress={() => navigation.goBack()}>
               Close
             </Button>

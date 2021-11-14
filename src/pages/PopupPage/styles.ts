@@ -1,5 +1,5 @@
+import { PopupType } from "helpers/types";
 import { StyleSheet } from "react-native";
-import { PopupType } from "src/types/navigation";
 
 const getStyles = (type: PopupType, theme: ReactNativePaper.Theme) =>
   StyleSheet.create({
@@ -19,6 +19,7 @@ const getStyles = (type: PopupType, theme: ReactNativePaper.Theme) =>
       flex: 1,
       justifyContent: "flex-end",
       alignItems: "flex-end",
+      padding: 15,
     },
   });
 export default getStyles;
