@@ -1,11 +1,10 @@
+import { StackScreenProps } from "@react-navigation/stack";
+import PageContainer from "components/PageContainer";
 import * as React from "react";
 import { View } from "react-native";
-
-import { ParamList } from "src/types/navigation";
-import { StackScreenProps } from "@react-navigation/stack";
 import { Button, Headline } from "react-native-paper";
+import { ParamList } from "src/types/navigation";
 import styles from "./styles";
-import PageContainer from "components/PageContainer";
 
 type Props = StackScreenProps<ParamList, "Home">;
 
@@ -29,6 +28,18 @@ export default function Home({ navigation }: Props) {
           }}
         >
           FavoriteMovieGroupsPage
+        </Button>
+        <Button
+          mode={"contained"}
+          onPress={() => {
+            navigation.push("PopupPage", {
+              title: "Title",
+              message: "Here I am",
+              type: "confirm",
+            });
+          }}
+        >
+          PopupPage
         </Button>
       </PageContainer>
     </View>

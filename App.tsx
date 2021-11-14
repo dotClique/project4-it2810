@@ -11,6 +11,7 @@ import Home from "pages/Home";
 import MovieEventPage from "pages/MovieEventPage";
 import MovieGroupPage from "pages/MovieGroupPage";
 import MovieGroupsPage from "pages/MovieGroupsPage";
+import PopupPage from "pages/PopupPage";
 import React from "react";
 import { Provider as PaperProvider } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -59,6 +60,7 @@ export default function App() {
                 component={CreateMovieEventPage}
                 options={OverlayOptions}
               />
+              <Stack.Screen name="PopupPage" component={PopupPage} options={OverlayOptions} />
             </Stack.Navigator>
           </NavigationContainer>
         </PaperProvider>
