@@ -46,9 +46,9 @@ export default function CreationForm<T>(props: CreationFormProps<T>) {
     <View>
       <Formik
         initialValues={props.formInitialValues}
-        onSubmit={(values: T) =>
-          performMutation({ ...values, ...props.additionalRequestVariables })
-        }
+        onSubmit={(values: T) => {
+          performMutation({ variables: { ...values, ...props.additionalRequestVariables } });
+        }}
         validationSchema={props.validationSchema}
         validateOnChange={false}
         validateOnBlur={false}
