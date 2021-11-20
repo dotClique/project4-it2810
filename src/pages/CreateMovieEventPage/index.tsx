@@ -1,42 +1,60 @@
-import * as React from "react";
-import { StyleSheet, View } from "react-native";
-
-import { ParamList } from "types/navigation";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button, Headline, Subheading } from "react-native-paper";
+import CreationForm from "components/CreationForm";
+import * as React from "react";
+import FormField from "src/components/FormField";
+import { CREATE_MOVIE_EVENT } from "src/helpers/graphql-queries";
+import { ParamList } from "types/navigation";
+import * as yup from "yup";
+import FormDateTime from "../../components/FormDateTime/index";
+import PageContainer from "../../components/PageContainer/index";
+
 type Props = StackScreenProps<ParamList, "CreateMovieEventPage">;
 
-export default function CreateMovieEventPage({ route, navigation }: Props) {
-  const { movieGroupId } = route.params;
-  return (
-    <View style={styles.container}>
-      <View style={styles.card}>
-        <Headline>CreateMovieEventPage</Headline>
-        <Subheading>ID: {movieGroupId}</Subheading>
-        <Button
-          mode={"contained"}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          Go back
-        </Button>
-      </View>
-    </View>
-  );
+// The names of the form fields.
+enum FormNames {
+  title = "title",
+  description = "description",
+  location = "location",
+  date = "date",
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  card: {
-    maxHeight: 300,
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+const formInitialValues = {
+  title: "",
+  description: "",
+  location: "",
+  date: "",
+};
+
+// Schema used to validate the form.
+const validationSchema = yup.object({
+  title: yup.string().min(3, "Min 3 characters").required("Required"),
+  description: yup.string().notRequired(),
+  location: yup.string().min(5, "Minimum 5 characters").required("Required"),
+  date: yup.date().required("Required"),
 });
+
+export default function CreateMovieEventPage({ navigation, route }: Props) {
+  const { movieGroupId } = route.params;
+
+  return (
+    <PageContainer title="Create Movie Event">
+      <CreationForm
+        formInitialValues={formInitialValues}
+        mutationCall={CREATE_MOVIE_EVENT}
+        validationSchema={validationSchema}
+        onCompleted={() => navigation.goBack()}
+        additionalRequestVariables={{ movieGroupId }}
+      >
+        {/* TODO: Use Autocomplete! */}
+        <FormField name={FormNames.title} label="Title" />
+        <FormField
+          name={FormNames.description}
+          label="Description of the movie event"
+          numberOfLines={4}
+        />
+        <FormField name={FormNames.location} label="Location" />
+        <FormDateTime name={FormNames.date} />
+      </CreationForm>
+    </PageContainer>
+  );
+}
