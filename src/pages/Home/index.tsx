@@ -11,7 +11,7 @@ type Props = StackScreenProps<ParamList, "Home">;
 export default function Home({ navigation }: Props) {
   return (
     <View style={styles.container}>
-      <PageContainer navigation={navigation} title={"Home"} footer={<View></View>}>
+      <PageContainer title={"Home"} footer={<View></View>}>
         <Headline>Hello</Headline>
         <Button
           mode={"contained"}

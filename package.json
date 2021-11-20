@@ -29,6 +29,7 @@
     "expo-splash-screen": "~0.13.3",
     "expo-status-bar": "~1.1.0",
     "expo-web-browser": "~10.0.3",
+    "formik": "^2.2.9",
     "graphql": "^16.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -37,7 +38,8 @@
     "react-native-paper": "^4.9.2",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

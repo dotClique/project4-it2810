@@ -1,19 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import LogOutButton from "components/LogOutButton";
 import * as React from "react";
+import { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 import { Headline, Surface } from "react-native-paper";
-import { ReactNode } from "react";
 import { ParamList } from "types/navigation";
-import LogOutButton from "components/LogOutButton";
-import { StackNavigationProp } from "@react-navigation/stack";
 
 type Props = {
   children: ReactNode;
   title?: string;
   footer?: ReactNode;
-  navigation: StackNavigationProp<ParamList>;
 };
 
 export default function PageContainer(props: Props) {
+  const navigation = useNavigation<StackNavigationProp<ParamList>>();
   return (
     <Surface style={styles.container}>
       {props.title ? <Headline style={styles.title}>{props.title}</Headline> : false}
@@ -22,7 +23,7 @@ export default function PageContainer(props: Props) {
       <View>
         {props.footer ? (
           <View>
-            <LogOutButton navigation={props.navigation} />
+            <LogOutButton navigation={navigation} />
             {props.footer}
           </View>
         ) : (
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     marginTop: 40,
-    fontFamily: "Verdana",
+    // fontFamily: "Verdana",
   },
   content: {
     flex: 1,

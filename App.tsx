@@ -53,7 +53,7 @@ export default function App() {
               <Stack.Screen
                 name="CreateMovieGroupPage"
                 component={CreateMovieGroupPage}
-                options={OverlayOptions}
+                options={horizontalSwipeOptions}
               />
               <Stack.Screen
                 name="CreateMovieEventPage"
