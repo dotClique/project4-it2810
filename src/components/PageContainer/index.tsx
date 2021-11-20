@@ -1,10 +1,10 @@
+import { StackNavigationProp } from "@react-navigation/stack";
+import LogOutButton from "components/LogOutButton";
 import * as React from "react";
+import { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
 import { Headline, Surface } from "react-native-paper";
-import { ReactNode } from "react";
 import { ParamList } from "types/navigation";
-import LogOutButton from "components/LogOutButton";
-import { StackNavigationProp } from "@react-navigation/stack";
 
 type Props = {
   children: ReactNode;
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     marginTop: 40,
-    fontFamily: "Verdana",
+    // fontFamily: "Verdana",
   },
   content: {
     flex: 1,
