@@ -1,3 +1,5 @@
+import { PopupParams } from "helpers/types";
+
 export type ParamList = {
   Home: undefined;
   MovieGroupPage: { MovieGroupId: string };
@@ -6,4 +8,5 @@ export type ParamList = {
   CreateMovieGroupPage: undefined;
   CreateMovieEventPage: { MovieGroupId: string };
   MovieEventPage: { MovieEventId: string };
+  PopupPage: PopupParams;
 };
