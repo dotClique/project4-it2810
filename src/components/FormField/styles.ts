@@ -9,8 +9,8 @@ const getStyles = (theme: ReactNativePaper.Theme, width?: number) =>
       color: theme.colors.error,
     },
     inputContainer: {
-      marginTop: 20,
-      marginBottom: 20,
+      marginTop: 10,
+      marginBottom: 10,
     },
   });
 

@@ -19,7 +19,7 @@ export default function PopupPage({ route, navigation }: PopupPageProps) {
       <Card style={styles.card}>
         <Card.Title title={params.title} />
         <Card.Content>
-          <Paragraph>{params.message}</Paragraph>
+          <Paragraph>{params.message.trim().substring(0, 70)}</Paragraph>
           <View>{params.content}</View>
         </Card.Content>
         <Card.Actions style={styles.actions}>
