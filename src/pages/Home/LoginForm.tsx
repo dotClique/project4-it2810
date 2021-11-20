@@ -16,9 +16,9 @@ const formInitialValues = {
   alias: "",
 };
 
-const validationSchema = {
-  alias: yup.string().required("Required"),
-};
+const validationSchema = yup.object({
+  alias: yup.string().min(3).required("Required"),
+});
 
 const loginNavigate = (navigation: StackNavigationProp<ParamList>, hasFavorites: boolean) => {
   if (hasFavorites) {
@@ -55,13 +55,11 @@ export default function LoginForm() {
       setAlias(data.createUserOrCheckIfExists.alias);
       loginNavigate(navigation, data.createUserOrCheckIfExists.userHasFavorites);
     }
-  }, [loading, history, data, error]);
+  }, [loading, data, error]);
 
   // Adds the user if not not already registered, gets them if else
   const handleSubmit = useCallback(({ alias }: typeof formInitialValues) => {
-    if (alias) {
-      addOrGetUser({ variables: { alias } });
-    }
+    addOrGetUser({ variables: { alias } });
   }, []);
 
   return (
@@ -70,13 +68,17 @@ export default function LoginForm() {
         initialValues={formInitialValues}
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
+        validateOnChange={false}
+        validateOnBlur={false}
       >
-        {({ handleSubmit }) => {
+        {({ handleSubmit }) => (
           <View>
             <FormField label="Alias" name="alias" />
-            <Button onPress={handleSubmit}>Enter</Button>
-          </View>;
-        }}
+            <Button mode="contained" onPress={handleSubmit}>
+              Enter
+            </Button>
+          </View>
+        )}
       </Formik>
     </View>
   );
