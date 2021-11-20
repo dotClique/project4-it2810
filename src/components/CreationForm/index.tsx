@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Formik, FormikErrors } from "formik";
+import { Formik } from "formik";
 import { DocumentNode } from "graphql";
-import { useMutationCall } from "helpers/hooks";
 import React, { ReactNode } from "react";
 import { View } from "react-native";
 import { Button } from "react-native-paper";
+import { useMutationCall } from "src/helpers/hooks";
 import styles from "./styles";
 
-type HandleChangeType = {
+/* type HandleChangeType = {
   (e: React.ChangeEvent<any>): void;
   <T = string | React.ChangeEvent<any>>(field: T): T extends React.ChangeEvent<any>
     ? void
@@ -17,14 +17,10 @@ type HandleChangeType = {
 type HandleBlurType = {
   (e: React.FocusEvent<any, Element>): void;
   <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
-};
+}; */
 
 type CreationFormProps<T> = {
-  children: (params: {
-    errors: FormikErrors<T>;
-    handleChange: HandleChangeType;
-    handleBlur: HandleBlurType;
-  }) => ReactNode;
+  children: ReactNode;
   formInitialValues: T;
   validationSchema?: unknown;
   mutationCall: DocumentNode;
@@ -38,9 +34,14 @@ type CreationFormProps<T> = {
  */
 export default function CreationForm<T>(props: CreationFormProps<T>) {
   // Hook to handle the creation request to hte graphql api.
-  const [performMutation, { loading }] = useMutationCall(props.mutationCall, props.onCompleted);
+  const [performMutation, { loading }] = useMutationCall(
+    props.mutationCall,
+    props.onCompleted,
+    props.additionalRequestVariables,
+  );
 
   // Using Formik to handle form state management, errors, validation and submit.
+  //const performMutation = (obj: any) => console.log(obj);
   return (
     <View>
       <Formik
@@ -52,23 +53,15 @@ export default function CreationForm<T>(props: CreationFormProps<T>) {
         validateOnChange={false}
         validateOnBlur={false}
       >
-        {({ errors, handleSubmit, handleChange, handleBlur }) => (
-          <Form>
-            <View style={styles.formContainer}>
-              {props.children({ errors, handleChange, handleBlur })}
-              {props.submitButton || (
-                <Button
-                  onPress={handleSubmit}
-                  mode="contained"
-                  disabled={loading}
-                  loading={loading}
-                >
-                  Submit
-                </Button>
-              )}
-              {/* Loading icon if applicable */}
-            </View>
-          </Form>
+        {({ handleSubmit }) => (
+          <View style={styles.formContainer}>
+            {props.children}
+            {props.submitButton || (
+              <Button onPress={handleSubmit} mode="contained" disabled={loading} loading={loading}>
+                Submit
+              </Button>
+            )}
+          </View>
         )}
       </Formik>
     </View>

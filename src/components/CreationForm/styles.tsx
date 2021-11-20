@@ -4,8 +4,8 @@ const styles = StyleSheet.create({
   formContainer: {
     flex: 1,
     flexDirection: "column",
-    marginBottom: "2em",
-    padding: "2em",
+    marginBottom: 20,
+    padding: 20,
   },
 });
 
