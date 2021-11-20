@@ -2,11 +2,11 @@ import { PopupParams } from "helpers/types";
 
 export type ParamList = {
   Home: undefined;
-  MovieGroupPage: { MovieGroupId: string };
+  MovieGroupPage: { movieGroupId: string };
   MovieGroupsPage: undefined;
   FavoriteGroupsPage: undefined;
   CreateMovieGroupPage: undefined;
-  CreateMovieEventPage: { MovieGroupId: string };
-  MovieEventPage: { MovieEventId: string };
+  CreateMovieEventPage: { movieGroupId: string };
+  MovieEventPage: { movieEventId: string };
   PopupPage: PopupParams;
 };

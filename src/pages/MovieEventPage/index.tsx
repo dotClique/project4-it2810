@@ -7,11 +7,11 @@ import { Button, Headline, Subheading } from "react-native-paper";
 type Props = StackScreenProps<ParamList, "MovieEventPage">;
 
 export default function MovieEventPage({ route, navigation }: Props) {
-  const { MovieEventId } = route.params;
+  const { movieEventId } = route.params;
   return (
     <View style={styles.container}>
       <Headline>MovieEventPage</Headline>
-      <Subheading>ID: {MovieEventId}</Subheading>
+      <Subheading>ID: {movieEventId}</Subheading>
       <Button
         mode={"contained"}
         onPress={() => {
