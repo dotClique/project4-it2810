@@ -122,6 +122,7 @@ export const OverlayOptions: StackNavigationOptions = {
 
 export const RotateInOptions: StackNavigationOptions = {
   cardStyleInterpolator: RotateIn,
+  gestureEnabled: false,
   cardStyle: { backgroundColor: "transparent" },
   transitionSpec: {
     open: {
