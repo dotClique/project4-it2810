@@ -2,8 +2,8 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import LogOutButton from "components/LogOutButton";
 import * as React from "react";
-import { ReactNode } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ReactNode, useEffect, useState } from "react";
+import { Keyboard, ScrollView, StyleSheet, View } from "react-native";
 import { Headline, Surface } from "react-native-paper";
 import { ParamList } from "types/navigation";
 
@@ -15,6 +15,23 @@ type Props = {
 
 export default function PageContainer(props: Props) {
   const navigation = useNavigation<StackNavigationProp<ParamList>>();
+
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardVisible(true); // or some other action
+    });
+    const keyboardDidHideListener = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardVisible(false); // or some other action
+    });
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
     <Surface style={styles.container}>
       {props.title && <Headline style={styles.title}>{props.title}</Headline>}
@@ -23,7 +40,7 @@ export default function PageContainer(props: Props) {
       </View>
 
       <View style={styles.footer}>
-        {props.footer ? (
+        {props.footer && !isKeyboardVisible ? (
           <View>
             <LogOutButton navigation={navigation} />
             {props.footer}

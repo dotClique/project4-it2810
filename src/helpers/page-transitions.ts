@@ -125,8 +125,6 @@ export const OverlayOptions: StackNavigationOptions = {
 };
 
 export const RotateInOptions: StackNavigationOptions = {
-  gestureDirection: "horizontal",
-  gestureEnabled: true,
   cardStyleInterpolator: RotateIn,
   cardStyle: { backgroundColor: "transparent" },
   transitionSpec: {

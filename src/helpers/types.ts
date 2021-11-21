@@ -25,6 +25,15 @@ export type MovieGroupCount = {
   movieGroupCount: number;
 };
 
+export type FavoriteMovieGroup = {
+  movieGroupId: string;
+  name: string;
+  movieEvents: { title: string; date: string; movieEventId: string }[];
+};
+export type FavoriteMovieGroups = {
+  movieGroups: FavoriteMovieGroup[];
+};
+
 export type UserData = {
   user: {
     alias: string;

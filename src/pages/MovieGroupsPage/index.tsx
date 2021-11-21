@@ -25,7 +25,7 @@ export default function MovieGroupsPage({ navigation }: Props) {
   const [removeUserFromGroup] = useMutationCall(REMOVE_USER_FROM_MOVIE_GROUP, refetch);
   return (
     <PageContainer
-      title={"Temp"}
+      title={"All Groups"}
       footer={
         <>
           <Button
