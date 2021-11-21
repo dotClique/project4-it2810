@@ -1,36 +1,24 @@
+import PageContainer from "components/PageContainer";
 import * as React from "react";
 import { View } from "react-native";
-
-import { ParamList } from "src/types/navigation";
-import { StackScreenProps } from "@react-navigation/stack";
-import { Button, Headline } from "react-native-paper";
+import { Text } from "react-native-paper";
+import LoginForm from "./LoginForm";
 import styles from "./styles";
-import PageContainer from "components/PageContainer";
 
-type Props = StackScreenProps<ParamList, "Home">;
-
-export default function Home({ navigation }: Props) {
+export default function Home() {
   return (
-    <View style={styles.container}>
-      <PageContainer navigation={navigation} title={"Home"} footer={<View></View>}>
-        <Headline>Hello</Headline>
-        <Button
-          mode={"contained"}
-          onPress={() => {
-            navigation.reset({ routes: [{ name: "MovieGroupsPage" }] });
-          }}
-        >
-          MovieGroupsPage
-        </Button>
-        <Button
-          mode={"contained"}
-          onPress={() => {
-            navigation.reset({ routes: [{ name: "FavoriteGroupsPage" }] });
-          }}
-        >
-          FavoriteMovieGroupsPage
-        </Button>
-      </PageContainer>
-    </View>
+    <PageContainer
+      title="FilmFlokk"
+      //   description="Welcome to FilmFlokk, a website for sharing the unique joy of watching movies together.
+      // Please enter an alias before continuing."
+    >
+      <View style={styles.content}>
+        <Text style={styles.text}>
+          Welcome to FilmFlokk, a website for sharing the unique joy of watching movies together.
+          Please enter an alias before continuing.
+        </Text>
+        <LoginForm />
+      </View>
+    </PageContainer>
   );
 }

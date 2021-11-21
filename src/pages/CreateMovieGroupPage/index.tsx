@@ -1,40 +1,43 @@
-import * as React from "react";
-import { StyleSheet, View } from "react-native";
-
-import { ParamList } from "types/navigation";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button, Headline } from "react-native-paper";
+import CreationForm from "components/CreationForm";
+import * as React from "react";
+import FormField from "src/components/FormField";
+import { CREATE_MOVIE_GROUP } from "src/helpers/graphql-queries";
+import { ParamList } from "types/navigation";
+import * as yup from "yup";
+import PageContainer from "../../components/PageContainer/index";
+
 type Props = StackScreenProps<ParamList, "CreateMovieGroupPage">;
+
+// Defining the form fields.
+enum FormNames {
+  name = "name",
+  description = "description",
+}
+
+const formInitialValues = {
+  name: "",
+  description: "",
+};
+
+// The schema used to validate the form.
+const validationSchema = yup.object({
+  name: yup.string().min(3, "Min 3 characters").required("Required"),
+  description: yup.string().notRequired(),
+});
 
 export default function CreateMovieGroupPage({ navigation }: Props) {
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
-        <Headline>CreateMovieGroupPage</Headline>
-        <Button
-          mode={"contained"}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          Go back
-        </Button>
-      </View>
-    </View>
+    <PageContainer title="Create Movie Group">
+      <CreationForm
+        formInitialValues={formInitialValues}
+        mutationCall={CREATE_MOVIE_GROUP}
+        validationSchema={validationSchema}
+        onCompleted={() => navigation.navigate("MovieGroupsPage")}
+      >
+        <FormField name={FormNames.name} label="Name of group" />
+        <FormField name={FormNames.description} label="Description of group" numberOfLines={4} />
+      </CreationForm>
+    </PageContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  card: {
-    maxHeight: 300,
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

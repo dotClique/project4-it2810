@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  content: {
+  formContainer: {
     flex: 1,
-    height: "100%",
-  },
-  text: {
-    width: 250,
+    flexDirection: "column",
+    marginBottom: 20,
+    padding: 20,
   },
 });
+
 export default styles;
