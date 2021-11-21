@@ -10,7 +10,6 @@ import { ParamList } from "types/navigation";
 import * as yup from "yup";
 import FormAutocomplete from "../../components/FormAutocomplete/index";
 import PageContainer from "../../components/PageContainer/index";
-import { View } from "react-native";
 
 type Props = StackScreenProps<ParamList, "CreateMovieEventPage">;
 
@@ -57,6 +56,8 @@ export default function CreateMovieEventPage({ navigation, route }: Props) {
     refetch?.({ pageSize, searchString });
   }, [searchString]);
 
+  const firstElement = searchString ? [{ primarytitle: searchString }] : [];
+
   return (
     <PageContainer title="Create Movie Event">
       <CreationForm
@@ -70,7 +71,7 @@ export default function CreateMovieEventPage({ navigation, route }: Props) {
           name={FormNames.title}
           label="Title"
           loading={loading}
-          data={movies}
+          data={firstElement.concat(movies)}
           keyExtractor={(item, index) => `${item.primarytitle}${index}`}
           textExtractor={(item) => item.primarytitle}
           onChangeText={(text: string) => {

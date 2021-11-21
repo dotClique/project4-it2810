@@ -36,7 +36,6 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
             controller={(controller) => {
               dropdownController.current = controller;
             }}
-            loading={props.loading}
             closeOnBlur={false}
             closeOnSubmit={true}
             dataSet={
