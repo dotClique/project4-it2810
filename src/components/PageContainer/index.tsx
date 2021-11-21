@@ -1,11 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import LogOutButton from "components/LogOutButton";
 import * as React from "react";
 import { ReactNode, useEffect, useState } from "react";
 import { Keyboard, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { Headline, Surface } from "react-native-paper";
-import { ParamList } from "types/navigation";
 
 type Props = {
   children: ReactNode;

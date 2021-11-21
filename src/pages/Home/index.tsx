@@ -7,11 +7,7 @@ import styles from "./styles";
 
 export default function Home() {
   return (
-    <PageContainer
-      title="FilmFlokk"
-      //   description="Welcome to FilmFlokk, a website for sharing the unique joy of watching movies together.
-      // Please enter an alias before continuing."
-    >
+    <PageContainer title="FilmFlokk">
       <View style={styles.content}>
         <Text style={styles.text}>
           Welcome to FilmFlokk, a website for sharing the unique joy of watching movies together.

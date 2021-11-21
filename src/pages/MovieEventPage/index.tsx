@@ -10,7 +10,7 @@ import { useMovieEvent } from "./utils";
 type Props = StackScreenProps<ParamList, "MovieEventPage">;
 
 export default function MovieEventPage({ route }: Props) {
-  const { MovieEventId: movieEventId } = route.params;
+  const { movieEventId } = route.params;
   const { isParticipant, movieData, joinEvent, leaveEvent } = useMovieEvent(movieEventId);
   return (
     <PageContainer
