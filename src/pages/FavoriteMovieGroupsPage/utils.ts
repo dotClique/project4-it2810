@@ -1,4 +1,3 @@
-import { useLazyQuery } from "@apollo/client";
 import {
   GET_COUNT_MOVIE_GROUPS_FAVORITE,
   GET_MOVIE_GROUPS_FAVORITE,
