@@ -20,7 +20,7 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
   const theme = useTheme();
   const styles = getStyles(theme, props.width);
   const [options, setOptions] = useState<string[]>([]);
-  const [{ value, onChange, onBlur }, { error }] = useField<string>(props.name);
+  const [{ value, onChange }, { error }] = useField<string>(props.name);
   const searchRef = useRef(null);
   const dropdownController = useRef(null);
   useEffect(() => {
