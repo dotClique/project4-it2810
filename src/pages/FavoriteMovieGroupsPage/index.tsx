@@ -23,10 +23,10 @@ export default function FavoriteMovieGroupsPage({ navigation }: Props) {
   const styles = getStyles();
   const pageSize = 4;
   const [alias] = useAlias();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [removeUserFromGroup] = useMutationCall(REMOVE_USER_FROM_MOVIE_GROUP);
   const { movieGroups, pageCount, refetch } = useFavoriteMovieGroups(
-    page,
+    page + 1,
     pageSize,
     alias || "",
     searchValue,
