@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Headline, TouchableRipple, useTheme } from "react-native-paper";
+import { Headline, useTheme } from "react-native-paper";
 import getStyles from "./styles";
 import FavoriteIcon from "components/FavoriteIcon";
 import { TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp, StackScreenProps } from "@react-navigation/stack";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { ParamList } from "types/navigation";
 
 type Props = {

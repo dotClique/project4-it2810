@@ -19,7 +19,7 @@ export default function MovieGroupsPage({ navigation }: Props) {
   const theme = useTheme();
   const styles = getStyles(theme);
   const pageSize = 8;
-  const [alias, _, logout] = useAlias();
+  const [alias] = useAlias();
   const [page, setPage] = useState(0);
   const { movieGroups, pageCount, refetch } = useMovieGroups(page + 1, pageSize, searchValue);
   const [addUserToGroup] = useMutationCall(ADD_USER_TO_MOVIE_GROUP, refetch);
@@ -60,12 +60,10 @@ export default function MovieGroupsPage({ navigation }: Props) {
                 title={item.name}
                 key={item.movieGroupId}
                 onToggleFavorite={() => {
-                  console.log("update");
                   // Send query toggling if the logged in user has the current group as a favorite
                   const params = {
                     variables: { movieGroupId: item.movieGroupId, useralias: alias },
                   };
-                  console.log(params);
                   return isFavorite ? removeUserFromGroup(params) : addUserToGroup(params);
                 }}
                 favorite={isFavorite}

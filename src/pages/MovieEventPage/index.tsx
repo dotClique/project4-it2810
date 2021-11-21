@@ -15,7 +15,6 @@ export default function MovieEventPage({ route, navigation }: Props) {
       <Button
         mode={"contained"}
         onPress={() => {
-          console.log("Event back");
           navigation.goBack();
         }}
       >

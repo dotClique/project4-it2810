@@ -4,7 +4,7 @@ import LogOutButton from "components/LogOutButton";
 import * as React from "react";
 import { ReactNode } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Caption, Headline, Surface } from "react-native-paper";
+import { Headline, Surface } from "react-native-paper";
 import { ParamList } from "types/navigation";
 
 type Props = {

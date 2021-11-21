@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const getStyles = (theme: ReactNativePaper.Theme, width?: number) =>
+const getStyles = (theme: ReactNativePaper.Theme) =>
   StyleSheet.create({
     link: {},
     title: { color: theme.colors.background },

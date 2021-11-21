@@ -1,6 +1,5 @@
-import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { GET_COUNT_MOVIE_GROUPS, GET_MOVIE_GROUPS } from "../../helpers/graphql-queries";
+import { GET_COUNT_MOVIE_GROUPS, GET_MOVIE_GROUPS } from "helpers/graphql-queries";
 import { useQueryCall } from "helpers/hooks";
 import { MovieGroups, MovieGroupCount, MovieGroup } from "helpers/types";
 

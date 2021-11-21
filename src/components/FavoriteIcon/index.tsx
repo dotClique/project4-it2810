@@ -3,7 +3,7 @@ import { useTheme } from "react-native-paper";
 import { HeartIcon as SolidHeart } from "react-native-heroicons/solid";
 import { HeartIcon as OutlinedHeart } from "react-native-heroicons/outline";
 import getStyles from "./styles";
-import { TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 type Props = {
   size: number;

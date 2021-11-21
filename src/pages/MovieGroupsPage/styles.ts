@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const getStyles = (theme: ReactNativePaper.Theme) =>
+const getStyles = () =>
   StyleSheet.create({
     movieGroupList: {
       display: "flex",
