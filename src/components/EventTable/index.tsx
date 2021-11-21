@@ -8,7 +8,7 @@ import EventTableSortHeader from "components/EventTableSortHeader";
 import { useAlias, useQueryCall } from "helpers/hooks";
 import { MovieGroupEvents } from "helpers/types";
 
-const optionsPerPage = [5, 10, 15, 20];
+const optionsPerPage = [3, 4, 5, 10, 15, 20];
 
 type Props = {
   id: string;
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default function EventTable(props: Props) {
-  const [count, setCount] = useState<number>(5);
+  const [count, setCount] = useState<number>(3);
   const [page, setPage] = useState<number>(0);
   const alias = useAlias()[0];
   const [numberOfPages, setNumberOfPages] = useState(1);
@@ -27,7 +27,7 @@ export default function EventTable(props: Props) {
     id: "DATE",
     direction: "asc",
   });
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(3);
 
   const [call, { data: dataEvents }] = useQueryCall<MovieGroupEvents>(
     GET_MOVIE_GROUP_EVENTS,
@@ -79,7 +79,7 @@ export default function EventTable(props: Props) {
       style={
         //because anchor in EventFilter menu button is positioned absolutely, we need to make sure that proper distance is upheld
         dataEvents
-          ? { marginTop: (5 - dataEvents.movieEvents.length) * (38 / pageSize) }
+          ? { marginTop: (5 - dataEvents.movieEvents.length) * (38 / 8) }
           : { marginTop: 38 }
       }
     >

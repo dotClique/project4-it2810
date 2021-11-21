@@ -54,6 +54,20 @@ export default function MovieGroupPage({ route, navigation }: Props) {
         fromDate={fromDate}
         navigation={navigation}
       />
+      {dataGroup ? (
+        <Button
+          mode={"contained"}
+          onPress={() => {
+            navigation.navigate("CreateMovieEventPage", {
+              MovieGroupId: dataGroup.movieGroup.movieGroupId,
+            });
+          }}
+        >
+          Create Event
+        </Button>
+      ) : (
+        false
+      )}
     </PageContainer>
   );
 }
