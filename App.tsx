@@ -24,7 +24,7 @@ export default function App() {
         <PaperProvider theme={theme}>
           <NavigationContainer>
             <Stack.Navigator
-              initialRouteName="MovieGroupsPage"
+              initialRouteName="Home"
               screenOptions={{
                 headerShown: false,
               }}

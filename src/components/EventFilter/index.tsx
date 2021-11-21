@@ -60,7 +60,7 @@ export default function EventFilter(props: Props) {
             props.setToDate(date.toISOString());
             props.setFromDate(new Date().toISOString());
             setVisible(false);
-            setButtonText("Upcoming events 1 week");
+            setButtonText("Upcoming events 1 month");
           }}
         />
         <Menu.Item
@@ -71,7 +71,7 @@ export default function EventFilter(props: Props) {
             props.setToDate(date.toISOString());
             props.setFromDate(new Date().toISOString());
             setVisible(false);
-            setButtonText("Upcoming events 1 week");
+            setButtonText("Upcoming events 1 year");
           }}
         />
         <Menu.Item
@@ -80,7 +80,7 @@ export default function EventFilter(props: Props) {
             props.setToDate("9999-12-30T23:59:59.999Z");
             props.setFromDate(new Date().toISOString());
             setVisible(false);
-            setButtonText("Upcoming events 1 week");
+            setButtonText("All upcoming Events");
           }}
         />
         <Menu.Item
@@ -89,7 +89,7 @@ export default function EventFilter(props: Props) {
             props.setToDate("9999-12-30T23:59:59.999Z");
             props.setFromDate("0001-01-01T00:00:01.000Z");
             setVisible(false);
-            setButtonText("Upcoming events 1 week");
+            setButtonText("All");
           }}
         />
       </Menu>

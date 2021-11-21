@@ -31,6 +31,7 @@ export default function EventTable(props: Props) {
     GET_MOVIE_GROUP_EVENTS,
     false,
     () => {},
+    false,
     {
       variables: {
         movieGroupId: String(props.id),
@@ -43,7 +44,6 @@ export default function EventTable(props: Props) {
         alias,
         asc: sortBy.direction === "asc",
       },
-      fetchPolicy: "network-only",
     },
   );
 
@@ -73,24 +73,19 @@ export default function EventTable(props: Props) {
   }, [count, pageSize]);
 
   return (
-    <DataTable>
+    <DataTable
+      style={
+        //because anchor in EventFilter menu button is positioned absolutely, we need to make sure that proper distance is upheld
+        dataEvents
+          ? { marginTop: (pageSize - dataEvents.movieEvents.length) * (38 / pageSize) }
+          : { marginTop: 38 }
+      }
+    >
       <DataTable.Header>
         <EventTableSortHeader
           setSortBy={setSortBy}
           title={"Event Title"}
           id={"TITLE"}
-          sortBy={sortBy}
-        />
-        <EventTableSortHeader
-          setSortBy={setSortBy}
-          title={"Description"}
-          id={"DESCRIPTION"}
-          sortBy={sortBy}
-        />
-        <EventTableSortHeader
-          setSortBy={setSortBy}
-          title={"Location"}
-          id={"LOCATION"}
           sortBy={sortBy}
         />
         <EventTableSortHeader
@@ -122,12 +117,6 @@ export default function EventTable(props: Props) {
               >
                 <DataTable.Cell>
                   <Text>{movieEvent.title}</Text>
-                </DataTable.Cell>
-                <DataTable.Cell>
-                  <Text>{movieEvent.description}</Text>
-                </DataTable.Cell>
-                <DataTable.Cell>
-                  <Text>{movieEvent.location}</Text>
                 </DataTable.Cell>
                 <DataTable.Cell>
                   <Text>{movieEvent.date.replace("T", " ").replace("Z", "").slice(0, -4)}</Text>

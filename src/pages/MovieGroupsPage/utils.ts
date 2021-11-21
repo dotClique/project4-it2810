@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { GET_COUNT_MOVIE_GROUPS, GET_MOVIE_GROUPS } from "helpers/graphql-queries";
 import { useQueryCall } from "helpers/hooks";
-import { MovieGroups, MovieGroupCount, MovieGroup } from "helpers/types";
+import { MovieGroups, MovieGroupCount, MovieGroupInList } from "helpers/types";
 
 /**
  * Custom hook for getting movie groups with pagination and search
@@ -19,7 +19,7 @@ export function useMovieGroups(page: number, pageSize: number, searchString: str
     useQueryCall<MovieGroups>(GET_MOVIE_GROUPS, true, undefined, true);
 
   // The array to store the movie groups in
-  const [movieGroups, setMovieGroups] = useState<MovieGroup[]>([]);
+  const [movieGroups, setMovieGroups] = useState<MovieGroupInList[]>([]);
 
   // The total page count
   const [pageCount, setPageCount] = useState(1);
