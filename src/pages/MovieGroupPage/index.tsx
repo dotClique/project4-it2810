@@ -27,7 +27,7 @@ export default function MovieGroupPage({ route, navigation }: Props) {
 
   return (
     <PageContainer
-      title={dataGroup ? dataGroup.movieGroup.name : "Kunne ikke laste inn"}
+      title={dataGroup ? dataGroup.movieGroup.name : "loading"}
       footer={
         <>
           <Button
@@ -49,9 +49,7 @@ export default function MovieGroupPage({ route, navigation }: Props) {
         </>
       }
     >
-      <Subheading>
-        {dataGroup ? dataGroup.movieGroup.description : "Kunne ikke laste inn"}
-      </Subheading>
+      <Subheading>{dataGroup ? dataGroup.movieGroup.description : "loading"}</Subheading>
       <EventFilter
         setSearchString={setSearchString}
         setToDate={setToDate}
