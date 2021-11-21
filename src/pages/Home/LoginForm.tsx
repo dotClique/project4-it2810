@@ -74,7 +74,7 @@ export default function LoginForm() {
         {({ handleSubmit }) => (
           <View>
             <FormField label="Alias" name="alias" />
-            <Button mode="contained" onPress={handleSubmit}>
+            <Button mode="contained" onPress={handleSubmit} loading={loading}>
               Enter
             </Button>
           </View>
