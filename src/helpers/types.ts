@@ -11,3 +11,15 @@ export type PopupParams = {
   confirmButtonText?: string;
   type: PopupType;
 };
+
+export type MovieGroups = {
+  movieGroups: {
+    movieGroupId: string;
+    name: string;
+    userFavorites: { alias: string }[];
+  }[];
+};
+
+export type MovieGroupCount = {
+  movieGroupCount: number;
+};
