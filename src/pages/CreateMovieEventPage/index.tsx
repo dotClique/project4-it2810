@@ -10,7 +10,7 @@ import { ParamList } from "types/navigation";
 import * as yup from "yup";
 import FormAutocomplete from "../../components/FormAutocomplete/index";
 import PageContainer from "../../components/PageContainer/index";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 
 type Props = StackScreenProps<ParamList, "CreateMovieEventPage">;
 
@@ -42,6 +42,7 @@ const pageSize = 20;
 export default function CreateMovieEventPage({ navigation, route }: Props) {
   const { movieGroupId } = route.params;
   const [searchString, setSearchString] = useState("");
+  const [firstElement, setFirstElement] = useState<Movie[]>([{ primarytitle: "" }]);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [, { data, loading, refetch }] = useQueryCall<Movies>(GET_MOVIES, false, undefined, false, {
     pageSize,
@@ -55,10 +56,9 @@ export default function CreateMovieEventPage({ navigation, route }: Props) {
   }, [data]);
   useEffect(() => {
     refetch?.({ pageSize, searchString });
+
+    setFirstElement([{ primarytitle: searchString }]);
   }, [searchString]);
-
-  const firstElement = searchString ? [{ primarytitle: searchString }] : [];
-
   return (
     <PageContainer title="Create Movie Event">
       <CreationForm
@@ -68,12 +68,12 @@ export default function CreateMovieEventPage({ navigation, route }: Props) {
         onCompleted={() => navigation.goBack()}
         additionalRequestVariables={{ movieGroupId }}
       >
-        <View style={{ zIndex: 199999999 }}>
+        <View style={{ ...(Platform.OS === "ios" ? { zIndex: 1 } : {}) }}>
           <FormAutocomplete
             name={FormNames.title}
             label="Title"
             loading={loading}
-            data={firstElement.concat(movies)}
+            data={firstElement[0].primarytitle ? firstElement.concat(movies) : movies}
             keyExtractor={(item, index) => `${item.primarytitle}${index}`}
             textExtractor={(item) => item.primarytitle}
             onChangeText={(text: string) => {

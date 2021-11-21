@@ -26,7 +26,6 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
   useEffect(() => {
     setOptions(props.data.map(props.textExtractor));
   }, [props.data]);
-
   return (
     <View>
       <View style={styles.inputContainer}>
