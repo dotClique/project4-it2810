@@ -1,11 +1,12 @@
 import * as React from "react";
 import { GET_MOVIE_GROUP_EVENTS } from "helpers/graphql-queries";
-import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ParamList } from "types/navigation";
-import { DataTable } from "react-native-paper";
+import { DataTable, Text } from "react-native-paper";
 import EventTableSortHeader from "components/EventTableSortHeader";
+import { useAlias, useQueryCall } from "helpers/hooks";
+import { MovieGroupEvents } from "helpers/types";
 
 type Props = {
   id: string;
@@ -16,32 +17,60 @@ type Props = {
 };
 
 export default function EventTable(props: Props) {
-  const [count, setCount] = useState<number>(1);
-  const [page, setPage] = useState<number>(1);
-  const { alias } = "i"; //useAlias();
+  const [count, setCount] = useState<number>(5);
+  const [page, setPage] = useState<number>(0);
+  const alias = useAlias()[0];
+  const [numberOfPages, setNumberOfPages] = useState(1);
   const [sortBy, setSortBy] = useState<{ id: string; direction: "desc" | "asc" }>({
     id: "DATE",
     direction: "asc",
   });
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(5);
 
-  const { data: dataEvents } = useQuery(GET_MOVIE_GROUP_EVENTS, {
-    variables: {
-      movieGroupId: String(props.id),
-      sortBy: sortBy.id,
-      searchString: props.searchString,
-      pageSize,
-      fromDate: props.fromDate,
-      page,
-      toDate: props.toDate,
-      alias,
-      asc: sortBy.direction === "asc",
+  const [call, { data: dataEvents }] = useQueryCall<MovieGroupEvents>(
+    GET_MOVIE_GROUP_EVENTS,
+    false,
+    () => {},
+    {
+      variables: {
+        movieGroupId: String(props.id),
+        sortBy: sortBy.id,
+        searchString: props.searchString,
+        pageSize,
+        fromDate: props.fromDate,
+        page: page + 1,
+        toDate: props.toDate,
+        alias,
+        asc: sortBy.direction === "asc",
+      },
+      fetchPolicy: "network-only",
     },
-    fetchPolicy: "network-only",
-  });
+  );
+
+  // calls the query again if any values that alters the expected output of the query is updated
+  useEffect(() => {
+    call({
+      variables: {
+        movieGroupId: String(props.id),
+        sortBy: sortBy.id,
+        searchString: props.searchString,
+        pageSize,
+        fromDate: props.fromDate,
+        page: page + 1,
+        toDate: props.toDate,
+        alias,
+        asc: sortBy.direction === "asc",
+      },
+    });
+  }, [props.fromDate, props.toDate, props.searchString, pageSize, sortBy]);
+
   useEffect(() => {
     setCount(dataEvents ? dataEvents.movieEventCount : count);
   }, [dataEvents]);
+
+  useEffect(() => {
+    setNumberOfPages(count / pageSize);
+  }, [count, pageSize]);
 
   return (
     <DataTable>
@@ -85,37 +114,64 @@ export default function EventTable(props: Props) {
             return (
               <DataTable.Row
                 key={movieEvent.movieEventId}
-                onPressOut={() =>
+                onPress={() =>
                   props.navigation.navigate("MovieEventPage", {
                     MovieEventId: movieEvent.movieEventId,
                   })
                 }
               >
-                <DataTable.Cell>{movieEvent.title}</DataTable.Cell>
-                {/* Only displays the most important columns on mobile to save space*/}
-                {/*{!isMobile ? (
-                  <>
-                    <StyledTableCell>{movieEvent.description}</StyledTableCell>
-                    <StyledTableCell>{movieEvent.location}</StyledTableCell>
-                  </>
-                ) : (
-                  false
-                )*/}
-                ]
                 <DataTable.Cell>
-                  {movieEvent.date.replace("T", " ").replace("Z", "").slice(0, -4)}
+                  <Text>{movieEvent.title}</Text>
                 </DataTable.Cell>
-                <DataTable.Cell>{movieEvent.userIsParticipant ? "yes" : "no"}</DataTable.Cell>
+                <DataTable.Cell>
+                  <Text>{movieEvent.description}</Text>
+                </DataTable.Cell>
+                <DataTable.Cell>
+                  <Text>{movieEvent.location}</Text>
+                </DataTable.Cell>
+                <DataTable.Cell>
+                  <Text>{movieEvent.date.replace("T", " ").replace("Z", "").slice(0, -4)}</Text>
+                </DataTable.Cell>
               </DataTable.Row>
             );
           },
         )}
       <DataTable.Pagination
         page={page}
-        numberOfPages={count / pageSize}
-        onPageChange={(page) => setPage(page)}
+        numberOfPages={Math.ceil(numberOfPages)}
+        onPageChange={(page) => {
+          setPage(page);
+          call({
+            variables: {
+              movieGroupId: String(props.id),
+              sortBy: sortBy.id,
+              searchString: props.searchString,
+              pageSize,
+              fromDate: props.fromDate,
+              page: page + 1,
+              toDate: props.toDate,
+              alias,
+              asc: sortBy.direction === "asc",
+            },
+          });
+        }}
         numberOfItemsPerPage={pageSize}
-        onItemsPerPageChange={(ItemsPerPage) => setPageSize(ItemsPerPage)}
+        onItemsPerPageChange={(ItemsPerPage) => {
+          setPageSize(ItemsPerPage);
+          call({
+            variables: {
+              movieGroupId: String(props.id),
+              sortBy: sortBy.id,
+              searchString: props.searchString,
+              pageSize,
+              fromDate: props.fromDate,
+              page: page + 1,
+              toDate: props.toDate,
+              alias,
+              asc: sortBy.direction === "asc",
+            },
+          });
+        }}
       />
     </DataTable>
   );

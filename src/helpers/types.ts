@@ -22,3 +22,23 @@ export type UserData = {
 export type CreateUserOrCheckIfExists = {
   createUserOrCheckIfExists: UserData["user"];
 };
+
+export type MovieGroup = {
+  movieGroup: {
+    movieGroupId: string;
+    name: string;
+    description: string;
+  };
+};
+
+export type MovieGroupEvents = {
+  movieEvents: {
+    title: string;
+    description: string;
+    date: string;
+    location: string;
+    movieEventId: string;
+    userIsParticipant: boolean;
+  }[];
+  movieEventCount: number;
+};

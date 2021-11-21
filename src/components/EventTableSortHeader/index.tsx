@@ -16,7 +16,7 @@ export default function EventTableSortHeader(props: Props) {
       sortDirection={
         active ? (props.sortBy.direction == "asc" ? "ascending" : "descending") : undefined
       }
-      onPressOut={() => {
+      onPress={() => {
         active
           ? props.setSortBy({
               id: props.id,

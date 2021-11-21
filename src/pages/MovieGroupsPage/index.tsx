@@ -15,7 +15,7 @@ export default function MovieGroupsPage({ navigation }: Props) {
       <Button
         mode={"contained"}
         onPress={() => {
-          navigation.navigate("MovieGroupPage", { MovieGroupId: "testGroupId" });
+          navigation.navigate("MovieGroupPage", { MovieGroupId: "ckvft1pfp0019alpcmf9fwiwy" });
         }}
       >
         Movie Group Page

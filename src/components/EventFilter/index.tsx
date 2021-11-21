@@ -12,9 +12,11 @@ type Props = {
 export default function EventFilter(props: Props) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [visible, setVisible] = React.useState(false);
+  const [buttonText, setButtonText] = React.useState("Date");
   return (
     <View style={styles.filterGrid}>
       <Searchbar
+        style={{ width: 300, marginBottom: 10 }}
         placeholder={"Search for event by title"}
         value={searchQuery}
         onChangeText={(text) => {
@@ -29,11 +31,13 @@ export default function EventFilter(props: Props) {
         }}
         anchor={
           <Button
+            style={{ width: 300, height: 38 }}
+            mode={"contained"}
             onPress={() => {
               setVisible(true);
             }}
           >
-            Dato
+            {buttonText}
           </Button>
         }
       >
@@ -44,6 +48,8 @@ export default function EventFilter(props: Props) {
             date.setDate(date.getDate() + 7);
             props.setToDate(date.toISOString());
             props.setFromDate(new Date().toISOString());
+            setVisible(false);
+            setButtonText("Upcoming events 1 week");
           }}
         />
         <Menu.Item
@@ -53,6 +59,8 @@ export default function EventFilter(props: Props) {
             date.setMonth(date.getMonth() + 1);
             props.setToDate(date.toISOString());
             props.setFromDate(new Date().toISOString());
+            setVisible(false);
+            setButtonText("Upcoming events 1 week");
           }}
         />
         <Menu.Item
@@ -62,6 +70,8 @@ export default function EventFilter(props: Props) {
             date.setFullYear(date.getFullYear() + 1);
             props.setToDate(date.toISOString());
             props.setFromDate(new Date().toISOString());
+            setVisible(false);
+            setButtonText("Upcoming events 1 week");
           }}
         />
         <Menu.Item
@@ -69,6 +79,8 @@ export default function EventFilter(props: Props) {
           onPress={() => {
             props.setToDate("9999-12-30T23:59:59.999Z");
             props.setFromDate(new Date().toISOString());
+            setVisible(false);
+            setButtonText("Upcoming events 1 week");
           }}
         />
         <Menu.Item
@@ -76,6 +88,8 @@ export default function EventFilter(props: Props) {
           onPress={() => {
             props.setToDate("9999-12-30T23:59:59.999Z");
             props.setFromDate("0001-01-01T00:00:01.000Z");
+            setVisible(false);
+            setButtonText("Upcoming events 1 week");
           }}
         />
       </Menu>
@@ -85,7 +99,12 @@ export default function EventFilter(props: Props) {
 
 const styles = StyleSheet.create({
   filterGrid: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     width: "100%",
     height: "10%",
+    marginTop: 20,
+    marginBottom: 35,
   },
 });

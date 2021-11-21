@@ -2,18 +2,20 @@ import * as React from "react";
 
 import { ParamList } from "types/navigation";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button, Paragraph, Subheading } from "react-native-paper";
+import { Button, Subheading } from "react-native-paper";
 import PageContainer from "components/PageContainer";
 import { useState } from "react";
 import { GET_MOVIE_GROUP } from "helpers/graphql-queries";
-import { useQuery } from "@apollo/client";
 import EventTable from "components/EventTable";
 import EventFilter from "components/EventFilter";
+import { View } from "react-native";
+import { useQueryCall } from "helpers/hooks";
+import { MovieGroup } from "helpers/types";
 type Props = StackScreenProps<ParamList, "MovieGroupPage">;
 
 export default function MovieGroupPage({ route, navigation }: Props) {
   const { MovieGroupId } = route.params;
-  const { data: dataGroup } = useQuery(GET_MOVIE_GROUP, {
+  const [call, { data: dataGroup }] = useQueryCall<MovieGroup>(GET_MOVIE_GROUP, false, () => {}, {
     variables: { movieGroupId: String(MovieGroupId) },
     fetchPolicy: "cache-first",
   });
@@ -23,8 +25,7 @@ export default function MovieGroupPage({ route, navigation }: Props) {
 
   return (
     <PageContainer
-      title={"Group Page"}
-      navigation={navigation}
+      title={dataGroup ? dataGroup.movieGroup.name : "Kunne ikke laste inn"}
       footer={
         <Button
           mode={"contained"}
@@ -36,13 +37,18 @@ export default function MovieGroupPage({ route, navigation }: Props) {
         </Button>
       }
     >
-      <Subheading> {dataGroup ? dataGroup.movieGroup.name : "Kunne ikke laste inn"}</Subheading>
-      <Paragraph>{dataGroup ? dataGroup.movieGroup.description : "Kunne ikke laste inn"}</Paragraph>
-      <EventFilter
-        setSearchString={setSearchString}
-        setToDate={setToDate}
-        setFromDate={setFromDate}
-      />
+      <View>
+        <Subheading>
+          {dataGroup ? dataGroup.movieGroup.description : "Kunne ikke laste inn"}
+        </Subheading>
+      </View>
+      <View>
+        <EventFilter
+          setSearchString={setSearchString}
+          setToDate={setToDate}
+          setFromDate={setFromDate}
+        />
+      </View>
       <EventTable
         id={MovieGroupId}
         searchString={searchString}
