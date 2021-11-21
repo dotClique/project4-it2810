@@ -6,7 +6,10 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   text: {
-    width: 250,
+    width: "100%",
+    textAlign: "center",
+    marginBottom: "20%",
+    marginTop: "10%",
   },
 });
 export default styles;
