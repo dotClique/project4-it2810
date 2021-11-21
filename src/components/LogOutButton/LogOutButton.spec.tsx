@@ -3,7 +3,6 @@ import { fireEvent, render } from "@testing-library/react-native";
 import LogOutButton from "components/LogOutButton/index";
 
 const fakeNavigation = {
-  navigate: jest.fn(),
   reset: jest.fn(),
 };
 
@@ -15,7 +14,6 @@ const setAlias = (newAlias: string | null) => {
 const logOut = () => {
   setAlias(null);
 };
-
 const mockUseAlias = () => {
   return [alias, setAlias, logOut];
 };
@@ -31,4 +29,11 @@ test("LogOutButton test of clearing alias", () => {
   const button = getByText("Log Out");
   fireEvent.press(button);
   expect(alias === null).toBeTruthy();
+});
+
+test("LogOutButton test of calling reset", () => {
+  const { getByText } = render(<LogOutButton navigation={fakeNavigation} />);
+  const button = getByText("Log Out");
+  fireEvent.press(button);
+  expect(fakeNavigation.reset).toBeCalled();
 });
