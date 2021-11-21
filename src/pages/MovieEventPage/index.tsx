@@ -11,11 +11,10 @@ type Props = StackScreenProps<ParamList, "MovieEventPage">;
 
 export default function MovieEventPage({ route }: Props) {
   const { MovieEventId: movieEventId } = route.params;
-  // const movieEventId = "ckvftqcsa2136alpcvwggpbmm";
   const { isParticipant, movieData, joinEvent, leaveEvent } = useMovieEvent(movieEventId);
   return (
     <PageContainer
-      title="temp"
+      title={movieData.title || "movie event"}
       footer={
         <View>
           {movieData && isParticipant ? (
