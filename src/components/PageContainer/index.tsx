@@ -9,6 +9,7 @@ type Props = {
   title?: string;
   footer?: ReactNode;
   disableScrollView?: boolean;
+  includeLogoutButton?: boolean;
 };
 
 export default function PageContainer(props: Props) {
@@ -42,9 +43,9 @@ export default function PageContainer(props: Props) {
       </View>
 
       <View style={styles.footer}>
-        {props.footer && !isKeyboardVisible ? (
+        {(props.footer && !isKeyboardVisible) || props.includeLogoutButton ? (
           <View>
-            <LogOutButton />
+            {props.includeLogoutButton && <LogOutButton />}
             {props.footer}
           </View>
         ) : (

@@ -26,6 +26,7 @@ export default function MovieGroupsPage({ navigation }: Props) {
   return (
     <PageContainer
       title={"All Groups"}
+      includeLogoutButton={true}
       footer={
         <>
           <Button
