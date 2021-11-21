@@ -1,20 +1,20 @@
-import * as React from "react";
-
-import { ParamList } from "types/navigation";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button, Subheading } from "react-native-paper";
-import PageContainer from "components/PageContainer";
-import { useState } from "react";
-import { GET_MOVIE_GROUP } from "helpers/graphql-queries";
-import EventTable from "components/EventTable";
 import EventFilter from "components/EventFilter";
+import EventTable from "components/EventTable";
+import PageContainer from "components/PageContainer";
+import { GET_MOVIE_GROUP } from "helpers/graphql-queries";
 import { useQueryCall } from "helpers/hooks";
 import { MovieGroup } from "helpers/types";
+import * as React from "react";
+import { useState } from "react";
+import { Button, Subheading } from "react-native-paper";
+import { ParamList } from "types/navigation";
+
 type Props = StackScreenProps<ParamList, "MovieGroupPage">;
 
 export default function MovieGroupPage({ route, navigation }: Props) {
   const { movieGroupId } = route.params;
-  const [call, { data: dataGroup }] = useQueryCall<MovieGroup>(
+  const [, { data: dataGroup }] = useQueryCall<MovieGroup>(
     GET_MOVIE_GROUP,
     false,
     () => {},

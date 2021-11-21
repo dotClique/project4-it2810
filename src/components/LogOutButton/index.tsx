@@ -1,11 +1,10 @@
-import { Button } from "react-native-paper";
-import * as React from "react";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ParamList } from "src/types/navigation";
-import { Text } from "react-native";
-import { useAlias } from "helpers/hooks";
 import { useNavigation } from "@react-navigation/native";
-type Props = { navigation: StackNavigationProp<ParamList> };
+import { StackNavigationProp } from "@react-navigation/stack";
+import { useAlias } from "helpers/hooks";
+import * as React from "react";
+import { Text } from "react-native";
+import { Button } from "react-native-paper";
+import { ParamList } from "src/types/navigation";
 
 export default function LogOutButton() {
   const navigation = useNavigation<StackNavigationProp<ParamList>>();

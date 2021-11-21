@@ -1,9 +1,9 @@
 import { useField } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
+import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 import { Text, useTheme } from "react-native-paper";
 import getStyles from "./styles";
-import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 
 type FormAutocompleteProps<DataType> = {
   name: string;
@@ -21,7 +21,6 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
   const styles = getStyles(theme, props.width);
   const [options, setOptions] = useState<string[]>([]);
   const [{ value, onChange }, { error }] = useField<string>(props.name);
-  const searchRef = useRef(null);
   const dropdownController = useRef(null);
   useEffect(() => {
     setOptions(props.data.map(props.textExtractor));
@@ -31,7 +30,6 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
       <View style={styles.inputContainer}>
         <View style={styles.autocompleteContainer}>
           <AutocompleteDropdown
-            ref={searchRef}
             controller={(controller) => {
               dropdownController.current = controller;
             }}
