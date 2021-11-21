@@ -113,7 +113,7 @@ export default function EventTable(props: Props) {
                 key={movieEvent.movieEventId}
                 onPress={() =>
                   props.navigation.navigate("MovieEventPage", {
-                    MovieEventId: movieEvent.movieEventId,
+                    movieEventId: movieEvent.movieEventId,
                   })
                 }
               >
