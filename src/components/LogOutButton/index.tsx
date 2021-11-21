@@ -5,6 +5,7 @@ import { ParamList } from "src/types/navigation";
 import { Text } from "react-native";
 import { useAlias } from "helpers/hooks";
 type Props = { navigation: StackNavigationProp<ParamList> };
+
 export default function LogOutButton({ navigation }: Props) {
   const logOut = useAlias()[2];
   return (
