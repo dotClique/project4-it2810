@@ -7,7 +7,7 @@ import { ParamList } from "types/navigation";
 import * as yup from "yup";
 import PageContainer from "../../components/PageContainer/index";
 
-type Props = StackScreenProps<ParamList, "CreateMovieGroupPage">;
+type Props = StackScreenProps<ParamList, "CreateMovieEventPage">;
 
 // Defining the form fields.
 enum FormNames {

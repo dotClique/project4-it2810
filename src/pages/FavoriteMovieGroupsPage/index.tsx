@@ -6,10 +6,11 @@ import { REMOVE_USER_FROM_MOVIE_GROUP } from "helpers/graphql-queries";
 import { useAlias, useMutationCall } from "helpers/hooks";
 import { useFavoriteMovieGroups } from "pages/FavoriteMovieGroupsPage/utils";
 import getStyles from "pages/MovieGroupsPage/styles";
+import * as React from "react";
 import { useState } from "react";
 import { View } from "react-native";
 import { Button, DataTable } from "react-native-paper";
-import { ParamList } from "src/types/navigation";
+import { ParamList } from "types/navigation";
 
 type Props = StackScreenProps<ParamList, "FavoriteGroupsPage">;
 
@@ -39,6 +40,14 @@ export default function FavoriteMovieGroupsPage({ navigation }: Props) {
             }}
           >
             All Groups
+          </Button>
+          <Button
+            mode={"contained"}
+            onPress={() => {
+              navigation.navigate("CreateMovieGroupPage");
+            }}
+          >
+            Create new group
           </Button>
           <DataTable>
             <DataTable.Pagination
