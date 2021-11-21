@@ -64,3 +64,25 @@ export type MovieGroupEvents = {
   }[];
   movieEventCount: number;
 };
+
+export type MovieEvent = {
+  movieEvent: {
+    title: string;
+    date: string;
+    description: string;
+    location: string;
+    userIsParticipant: boolean;
+  };
+};
+
+export type AddUserToEvent = {
+  addUserToEvent: {
+    userIsParticipant: boolean;
+  };
+};
+
+export type RemoveUserFromEvent = {
+  removeUserFromEvent: {
+    userIsParticipant: boolean;
+  };
+};
