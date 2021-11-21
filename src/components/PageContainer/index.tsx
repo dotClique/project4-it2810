@@ -3,7 +3,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import LogOutButton from "components/LogOutButton";
 import * as React from "react";
 import { ReactNode } from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Headline, Surface } from "react-native-paper";
 import { ParamList } from "types/navigation";
 
@@ -18,9 +18,11 @@ export default function PageContainer(props: Props) {
   return (
     <Surface style={styles.container}>
       {props.title && <Headline style={styles.title}>{props.title}</Headline>}
-      <View style={styles.content}>{props.children}</View>
+      <View style={styles.contentContainer}>
+        <ScrollView style={styles.content}>{props.children}</ScrollView>
+      </View>
 
-      <View>
+      <View style={styles.footer}>
         {props.footer ? (
           <View>
             <LogOutButton navigation={navigation} />
@@ -36,9 +38,9 @@ export default function PageContainer(props: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     width: "100%",
+    height: "100%",
     overflow: "scroll",
   },
   title: {
@@ -47,15 +49,17 @@ const styles = StyleSheet.create({
     // fontFamily: "Verdana",
   },
   content: {
-    marginTop: "10%",
-    flex: 1,
+    width: "80%",
+    maxWidth: 400,
+  },
+  contentContainer: {
     alignItems: "center",
     width: "100%",
-    maxHeight: "90%",
-    justifyContent: "center",
+    height: "80%",
+    flex: 1,
   },
   footer: {
-    flex: 1,
     alignItems: "center",
+    padding: 10,
   },
 });

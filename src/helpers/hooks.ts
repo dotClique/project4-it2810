@@ -82,6 +82,7 @@ export function useQueryCall<DataType, Variables = { [key: string]: any }>(
   mutationCall: DocumentNode,
   lazy = false,
   onCompleted?: (data?: DataType) => void,
+  networkOnly = false,
   variables?: Variables,
 ): [
   (options?: QueryLazyOptions<Variables> | undefined) => void,
@@ -91,6 +92,7 @@ export function useQueryCall<DataType, Variables = { [key: string]: any }>(
   const [performCall, result] = useLazyQuery<DataType, Variables>(mutationCall, {
     onCompleted,
     onError: (error) => showErr(error.message),
+    fetchPolicy: networkOnly ? "network-only" : undefined,
     variables: variables,
   });
 

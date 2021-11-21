@@ -31,7 +31,6 @@ export default function MovieGroupPage({ route, navigation }: Props) {
       <Button
         mode={"contained"}
         onPress={() => {
-          console.log("back");
           navigation.goBack();
         }}
       >
