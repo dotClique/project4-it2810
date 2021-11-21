@@ -8,6 +8,8 @@ import EventTableSortHeader from "components/EventTableSortHeader";
 import { useAlias, useQueryCall } from "helpers/hooks";
 import { MovieGroupEvents } from "helpers/types";
 
+const optionsPerPage = [5, 10, 15, 20];
+
 type Props = {
   id: string;
   searchString: string;
@@ -77,7 +79,7 @@ export default function EventTable(props: Props) {
       style={
         //because anchor in EventFilter menu button is positioned absolutely, we need to make sure that proper distance is upheld
         dataEvents
-          ? { marginTop: (pageSize - dataEvents.movieEvents.length) * (38 / pageSize) }
+          ? { marginTop: (5 - dataEvents.movieEvents.length) * (38 / pageSize) }
           : { marginTop: 38 }
       }
     >
@@ -146,6 +148,8 @@ export default function EventTable(props: Props) {
         }}
         label={`page ${page + 1} of ${Math.ceil(numberOfPages)}`}
         numberOfItemsPerPage={pageSize}
+        numberOfItemsPerPageList={optionsPerPage}
+        selectPageDropdownLabel={"Events per page"}
         onItemsPerPageChange={(ItemsPerPage) => {
           setPageSize(ItemsPerPage);
           call({
