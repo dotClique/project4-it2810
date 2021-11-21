@@ -25,7 +25,7 @@ export default function MovieGroupWithUpcomingEvents(props: Props) {
       <View style={styles.movieGroup}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("MovieGroupPage", { MovieGroupId: props.id });
+            navigation.navigate("MovieGroupPage", { movieGroupId: props.id });
           }}
         >
           <Headline style={styles.movieGroupTitle}>{props.title}</Headline>
@@ -44,7 +44,7 @@ export default function MovieGroupWithUpcomingEvents(props: Props) {
           <TouchableOpacity
             key={item.movieEventId}
             onPress={() => {
-              navigation.navigate("MovieEventPage", { MovieEventId: item.movieEventId });
+              navigation.navigate("MovieEventPage", { movieEventId: item.movieEventId });
             }}
             style={styles.movieEvent}
           >

@@ -13,13 +13,13 @@ import { MovieGroup } from "helpers/types";
 type Props = StackScreenProps<ParamList, "MovieGroupPage">;
 
 export default function MovieGroupPage({ route, navigation }: Props) {
-  const { MovieGroupId } = route.params;
+  const { movieGroupId } = route.params;
   const [call, { data: dataGroup }] = useQueryCall<MovieGroup>(
     GET_MOVIE_GROUP,
     false,
     () => {},
     false,
-    { variables: { movieGroupId: String(MovieGroupId) } },
+    { variables: { movieGroupId: String(movieGroupId) } },
   );
   const [searchString, setSearchString] = useState<string>("");
   const [fromDate, setFromDate] = useState<string>("0000-12-30T23:59:59.999Z"); //new Date().toISOString());
@@ -29,14 +29,25 @@ export default function MovieGroupPage({ route, navigation }: Props) {
     <PageContainer
       title={dataGroup ? dataGroup.movieGroup.name : "Kunne ikke laste inn"}
       footer={
-        <Button
-          mode={"contained"}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          Go back
-        </Button>
+        <>
+          <Button
+            mode={"contained"}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            Go back
+          </Button>
+          <Button
+            mode={"contained"}
+            onPress={() => {
+              console.log(movieGroupId);
+              navigation.navigate("CreateMovieEventPage", { movieGroupId });
+            }}
+          >
+            Create new event
+          </Button>
+        </>
       }
     >
       <Subheading>
@@ -48,7 +59,7 @@ export default function MovieGroupPage({ route, navigation }: Props) {
         setFromDate={setFromDate}
       />
       <EventTable
-        id={MovieGroupId}
+        id={movieGroupId}
         searchString={searchString}
         toDate={toDate}
         fromDate={fromDate}
