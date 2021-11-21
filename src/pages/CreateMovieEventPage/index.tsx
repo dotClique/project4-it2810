@@ -1,11 +1,14 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import CreationForm from "components/CreationForm";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import FormDateTime from "src/components/FormDateTime";
 import FormField from "src/components/FormField";
-import { CREATE_MOVIE_EVENT } from "src/helpers/graphql-queries";
+import { CREATE_MOVIE_EVENT, GET_MOVIES } from "src/helpers/graphql-queries";
+import { useQueryCall } from "src/helpers/hooks";
+import { Movies } from "src/helpers/types";
 import { ParamList } from "types/navigation";
 import * as yup from "yup";
-import FormDateTime from "../../components/FormDateTime/index";
+import FormAutocomplete from "../../components/FormAutocomplete/index";
 import PageContainer from "../../components/PageContainer/index";
 
 type Props = StackScreenProps<ParamList, "CreateMovieEventPage">;
@@ -33,8 +36,21 @@ const validationSchema = yup.object({
   date: yup.date().required("Required"),
 });
 
+const pageSize = 20;
+
 export default function CreateMovieEventPage({ navigation, route }: Props) {
   const { movieGroupId } = route.params;
+  const [searchString, setSearchString] = useState("");
+  const [, { data, refetch }] = useQueryCall<Movies>(GET_MOVIES, false, undefined, false, {
+    pageSize,
+    searchString,
+  });
+  console.log("Render cmep");
+
+  useEffect(() => {
+    if (searchString === "") return;
+    refetch?.({ pageSize, searchString });
+  }, [searchString]);
 
   return (
     <PageContainer title="Create Movie Event">
@@ -46,7 +62,16 @@ export default function CreateMovieEventPage({ navigation, route }: Props) {
         additionalRequestVariables={{ movieGroupId }}
       >
         {/* TODO: Use Autocomplete! */}
-        <FormField name={FormNames.title} label="Title" />
+        <FormAutocomplete
+          name={FormNames.title}
+          label="Title"
+          data={data?.movies ?? []}
+          keyExtractor={(item, index) => `${item.primarytitle}${index}`}
+          textExtractor={(item) => item.primarytitle}
+          onChangeText={(text: string) => {
+            setSearchString(text);
+          }}
+        />
         <FormField
           name={FormNames.description}
           label="Description of the movie event"
