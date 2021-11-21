@@ -20,9 +20,6 @@ const getStyles = (theme: ReactNativePaper.Theme, width?: number) =>
     autocomplete: {
       width: width ?? 250,
     },
-    flatList: {
-      maxHeight: 300,
-    },
   });
 
 export default getStyles;

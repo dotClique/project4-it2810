@@ -5,7 +5,7 @@ import FormDateTime from "src/components/FormDateTime";
 import FormField from "src/components/FormField";
 import { CREATE_MOVIE_EVENT, GET_MOVIES } from "src/helpers/graphql-queries";
 import { useQueryCall } from "src/helpers/hooks";
-import { Movies } from "src/helpers/types";
+import { Movie, Movies } from "src/helpers/types";
 import { ParamList } from "types/navigation";
 import * as yup from "yup";
 import FormAutocomplete from "../../components/FormAutocomplete/index";
@@ -42,14 +42,18 @@ const pageSize = 20;
 export default function CreateMovieEventPage({ navigation, route }: Props) {
   const { movieGroupId } = route.params;
   const [searchString, setSearchString] = useState("");
-  const [, { data, refetch }] = useQueryCall<Movies>(GET_MOVIES, false, undefined, false, {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [, { data, loading, refetch }] = useQueryCall<Movies>(GET_MOVIES, false, undefined, false, {
     pageSize,
     searchString,
   });
-  console.log("Render cmep");
 
   useEffect(() => {
-    if (searchString === "") return;
+    if (data && !loading) {
+      setMovies(data.movies);
+    }
+  }, [data]);
+  useEffect(() => {
     refetch?.({ pageSize, searchString });
   }, [searchString]);
 
@@ -62,19 +66,17 @@ export default function CreateMovieEventPage({ navigation, route }: Props) {
         onCompleted={() => navigation.goBack()}
         additionalRequestVariables={{ movieGroupId }}
       >
-        {/* TODO: Use Autocomplete! */}
-        <View style={{ position: "relative", marginBottom: 80 }}>
-          <FormAutocomplete
-            name={FormNames.title}
-            label="Title"
-            data={data?.movies ?? []}
-            keyExtractor={(item, index) => `${item.primarytitle}${index}`}
-            textExtractor={(item) => item.primarytitle}
-            onChangeText={(text: string) => {
-              setSearchString(text);
-            }}
-          />
-        </View>
+        <FormAutocomplete
+          name={FormNames.title}
+          label="Title"
+          loading={loading}
+          data={movies}
+          keyExtractor={(item, index) => `${item.primarytitle}${index}`}
+          textExtractor={(item) => item.primarytitle}
+          onChangeText={(text: string) => {
+            setSearchString(text);
+          }}
+        />
         <FormField
           name={FormNames.description}
           label="Description of the movie event"

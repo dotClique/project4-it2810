@@ -11,7 +11,7 @@ type FormAutocompleteProps<DataType> = {
   data: DataType[];
   label?: string;
   keyExtractor: (item: DataType, index: number) => string;
-  //renderItem?: ListRenderItem<DataType> | null | undefined;¨
+  loading: boolean;
   onChangeText?: (text: string) => void;
   textExtractor: (item: DataType) => string;
 };
@@ -36,6 +36,7 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
             controller={(controller) => {
               dropdownController.current = controller;
             }}
+            loading={props.loading}
             closeOnBlur={false}
             closeOnSubmit={true}
             dataSet={
@@ -49,31 +50,30 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
                   })
             }
             onSelectItem={(item) => {
-              console.log(item);
               if (item) {
-                console.log(item);
                 onChange(props.name)(item.title || "");
                 props.onChangeText?.(item.title || "");
               }
             }}
             onChangeText={(text) => {
               onChange(props.name)(text);
-              console.log(text);
               props.onChangeText && props.onChangeText(text);
             }}
             debounce={600}
             textInputProps={{
-              placeholder: "Type 3+ letters",
+              placeholder: "Event title",
               autoCorrect: false,
               autoCapitalize: "none",
               style: {
-                borderRadius: 25,
-                backgroundColor: "#383b42",
-                color: "#fff",
+                borderRadius: 8,
+                backgroundColor: theme.colors.background,
+                color: "#110f0f",
                 paddingLeft: 18,
               },
             }}
             inputHeight={50}
+            rightButtonsContainerStyle={{ backgroundColor: theme.colors.primary }}
+            emptyResultText={"no movies found"}
           />
         </View>
         <Text style={styles.errorText}>{error}</Text>
