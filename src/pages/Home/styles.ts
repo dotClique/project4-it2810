@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
+  content: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    height: "100%",
+  },
+  text: {
+    width: 250,
   },
 });
-
 export default styles;

@@ -23,3 +23,14 @@ export type MovieGroups = {
 export type MovieGroupCount = {
   movieGroupCount: number;
 };
+
+export type UserData = {
+  user: {
+    alias: string;
+    userHasFavorites: boolean;
+  };
+};
+
+export type CreateUserOrCheckIfExists = {
+  createUserOrCheckIfExists: UserData["user"];
+};

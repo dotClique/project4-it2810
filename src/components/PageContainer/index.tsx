@@ -17,7 +17,7 @@ export default function PageContainer(props: Props) {
   const navigation = useNavigation<StackNavigationProp<ParamList>>();
   return (
     <Surface style={styles.container}>
-      {props.title ? <Headline style={styles.title}>{props.title}</Headline> : false}
+      {props.title && <Headline style={styles.title}>{props.title}</Headline>}
       <View style={styles.contentContainer}>
         <ScrollView style={styles.content}>{props.children}</ScrollView>
       </View>

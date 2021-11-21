@@ -6,12 +6,15 @@ import {
   QueryLazyOptions,
   useLazyQuery,
   useMutation,
+  useReactiveVar,
 } from "@apollo/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { DocumentNode } from "graphql";
 import { useCallback, useEffect } from "react";
 import { ParamList } from "../types/navigation";
+import { aliasVar } from "./reactive-vars";
 import { PopupParams } from "./types";
 
 /**
@@ -98,3 +101,39 @@ export function useQueryCall<DataType, Variables = { [key: string]: any }>(
 
   return [performCall, result];
 }
+
+const aliasKey = "alias";
+
+/**
+ * Hook to handle updating the alias in cache with AsyncStorage.
+ * @returns an array of the value of the alias, a function to set the alias and a function to log out.
+ */
+export const useAlias = (): [string | null, (value: string) => void, () => void] => {
+  const alias = useReactiveVar(aliasVar);
+  const showErr = useErrorPopup();
+
+  // When the hook is called, update the state to the alias in AsyncStorage
+  useEffect(() => {
+    AsyncStorage.getItem(aliasKey)
+      .then((value) => {
+        // Only set the global alias to the one in AsyncStorage if it is defined there.
+        if (value !== null) aliasVar(value);
+      })
+      .catch((err) => showErr(JSON.stringify(err)));
+  }, []);
+
+  const updateAlias = useCallback(
+    (value: string) => {
+      AsyncStorage.setItem(aliasKey, value).catch((err) => showErr(JSON.stringify(err)));
+      aliasVar(value);
+    },
+    [alias, aliasVar],
+  );
+
+  const logOut = () => {
+    AsyncStorage.removeItem(aliasKey).catch((err) => showErr(JSON.stringify(err)));
+    aliasVar(null);
+  };
+
+  return [alias, updateAlias, logOut];
+};
