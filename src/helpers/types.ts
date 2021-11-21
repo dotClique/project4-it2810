@@ -11,3 +11,14 @@ export type PopupParams = {
   confirmButtonText?: string;
   type: PopupType;
 };
+
+export type UserData = {
+  user: {
+    alias: string;
+    userHasFavorites: boolean;
+  };
+};
+
+export type CreateUserOrCheckIfExists = {
+  createUserOrCheckIfExists: UserData["user"];
+};

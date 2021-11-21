@@ -17,7 +17,7 @@ export default function PageContainer(props: Props) {
   const navigation = useNavigation<StackNavigationProp<ParamList>>();
   return (
     <Surface style={styles.container}>
-      {props.title ? <Headline style={styles.title}>{props.title}</Headline> : false}
+      {props.title && <Headline style={styles.title}>{props.title}</Headline>}
       <View style={styles.content}>{props.children}</View>
 
       <View>
@@ -47,10 +47,11 @@ const styles = StyleSheet.create({
     // fontFamily: "Verdana",
   },
   content: {
+    marginTop: "10%",
     flex: 1,
     alignItems: "center",
     width: "100%",
-    maxHeight: "80%",
+    maxHeight: "90%",
     justifyContent: "center",
   },
   footer: {
