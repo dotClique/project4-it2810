@@ -44,3 +44,11 @@ export type UserData = {
 export type CreateUserOrCheckIfExists = {
   createUserOrCheckIfExists: UserData["user"];
 };
+
+export type Movie = {
+  primarytitle: string;
+};
+
+export type Movies = {
+  movies: Movie[];
+};
