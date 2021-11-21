@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     overflow: "scroll",
-    flex: 1,
   },
   title: {
     fontSize: 28,
@@ -57,10 +56,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "80%",
+    flex: 1,
   },
   footer: {
     alignItems: "center",
-    marginTop: "auto",
-    marginBottom: 20,
+    padding: 10,
   },
 });

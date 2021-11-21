@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { ParamList } from "types/navigation";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button, DataTable, Subheading, useTheme } from "react-native-paper";
+import { Button, DataTable, useTheme } from "react-native-paper";
 import PageContainer from "components/PageContainer";
 import SearchInput from "components/SearchInput";
 import { useState } from "react";
@@ -19,7 +19,7 @@ export default function MovieGroupsPage({ navigation }: Props) {
   const theme = useTheme();
   const styles = getStyles(theme);
   const pageSize = 8;
-  const [alias] = useAlias();
+  const [alias, _, logout] = useAlias();
   const [page, setPage] = useState(0);
   const { movieGroups, pageCount, refetch } = useMovieGroups(page + 1, pageSize, searchValue);
   const [addUserToGroup] = useMutationCall(ADD_USER_TO_MOVIE_GROUP, refetch);
@@ -28,14 +28,25 @@ export default function MovieGroupsPage({ navigation }: Props) {
     <PageContainer
       title={"Temp"}
       footer={
-        <Button
-          mode={"contained"}
-          onPress={() => {
-            navigation.navigate("FavoriteGroupsPage");
-          }}
-        >
-          Favorite Groups
-        </Button>
+        <>
+          <Button
+            mode={"contained"}
+            onPress={() => {
+              navigation.navigate("FavoriteGroupsPage");
+            }}
+          >
+            Favorite Groups
+          </Button>
+          <DataTable>
+            <DataTable.Pagination
+              numberOfPages={pageCount}
+              label={`page ${page + 1} of ${pageCount}`}
+              page={page}
+              onPageChange={(newPage) => setPage(newPage)}
+              numberOfItemsPerPage={pageSize}
+            />
+          </DataTable>
+        </>
       }
     >
       <View style={styles.container}>
@@ -64,15 +75,6 @@ export default function MovieGroupsPage({ navigation }: Props) {
           })}
         </View>
       </View>
-      <DataTable>
-        <DataTable.Pagination
-          numberOfPages={pageCount}
-          label={`page ${page + 1} of ${pageCount}`}
-          page={page}
-          onPageChange={(newPage) => setPage(newPage)}
-          numberOfItemsPerPage={pageSize}
-        />
-      </DataTable>
     </PageContainer>
   );
 }
