@@ -16,8 +16,7 @@ type Props = StackScreenProps<ParamList, "MovieGroupsPage">;
 
 export default function MovieGroupsPage({ navigation }: Props) {
   const [searchValue, setSearchValue] = useState("");
-  const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = getStyles();
   const pageSize = 8;
   const [alias] = useAlias();
   const [page, setPage] = useState(0);
