@@ -15,8 +15,6 @@ type Props = {
 };
 
 export default function PageContainer(props: Props) {
-  const navigation = useNavigation<StackNavigationProp<ParamList>>();
-
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -49,7 +47,7 @@ export default function PageContainer(props: Props) {
       <View style={styles.footer}>
         {props.footer && !isKeyboardVisible ? (
           <View>
-            <LogOutButton navigation={navigation} />
+            <LogOutButton />
             {props.footer}
           </View>
         ) : (
