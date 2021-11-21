@@ -24,7 +24,7 @@ export default function MovieGroupItem(props: Props) {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.container}
-        onPress={() => navigation.navigate("MovieGroupPage", { MovieGroupId: props.id })}
+        onPress={() => navigation.navigate("MovieGroupPage", { movieGroupId: props.id })}
       >
         <Headline style={styles.title}>{props.title}</Headline>
       </TouchableOpacity>

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 const getStyles = (theme: ReactNativePaper.Theme, width?: number) =>
   StyleSheet.create({
-    textInput: {
+    dateInput: {
       minWidth: width ?? 250,
     },
     errorText: {

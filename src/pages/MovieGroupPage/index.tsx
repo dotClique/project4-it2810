@@ -13,13 +13,13 @@ import { MovieGroup } from "helpers/types";
 type Props = StackScreenProps<ParamList, "MovieGroupPage">;
 
 export default function MovieGroupPage({ route, navigation }: Props) {
-  const { MovieGroupId } = route.params;
+  const { movieGroupId } = route.params;
   const [call, { data: dataGroup }] = useQueryCall<MovieGroup>(
     GET_MOVIE_GROUP,
     false,
     () => {},
     false,
-    { variables: { movieGroupId: String(MovieGroupId) } },
+    { variables: { movieGroupId: String(movieGroupId) } },
   );
   const [searchString, setSearchString] = useState<string>("");
   const [fromDate, setFromDate] = useState<string>("0000-12-30T23:59:59.999Z"); //new Date().toISOString());
@@ -27,47 +27,41 @@ export default function MovieGroupPage({ route, navigation }: Props) {
 
   return (
     <PageContainer
-      title={dataGroup ? dataGroup.movieGroup.name : "Kunne ikke laste inn"}
+      title={dataGroup ? dataGroup.movieGroup.name : "loading"}
       footer={
-        <Button
-          mode={"contained"}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          Go back
-        </Button>
+        <>
+          <Button
+            mode={"contained"}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            Go back
+          </Button>
+          <Button
+            mode={"contained"}
+            onPress={() => {
+              navigation.navigate("CreateMovieEventPage", { movieGroupId });
+            }}
+          >
+            Create new event
+          </Button>
+        </>
       }
     >
-      <Subheading>
-        {dataGroup ? dataGroup.movieGroup.description : "Kunne ikke laste inn"}
-      </Subheading>
+      <Subheading>{dataGroup ? dataGroup.movieGroup.description : "loading"}</Subheading>
       <EventFilter
         setSearchString={setSearchString}
         setToDate={setToDate}
         setFromDate={setFromDate}
       />
       <EventTable
-        id={MovieGroupId}
+        id={movieGroupId}
         searchString={searchString}
         toDate={toDate}
         fromDate={fromDate}
         navigation={navigation}
       />
-      {dataGroup ? (
-        <Button
-          mode={"contained"}
-          onPress={() => {
-            navigation.navigate("CreateMovieEventPage", {
-              MovieGroupId: dataGroup.movieGroup.movieGroupId,
-            });
-          }}
-        >
-          Create Event
-        </Button>
-      ) : (
-        false
-      )}
     </PageContainer>
   );
 }

@@ -58,7 +58,7 @@ export default function App() {
               <Stack.Screen
                 name="CreateMovieEventPage"
                 component={CreateMovieEventPage}
-                options={OverlayOptions}
+                options={horizontalSwipeOptions}
               />
               <Stack.Screen name="PopupPage" component={PopupPage} options={OverlayOptions} />
             </Stack.Navigator>

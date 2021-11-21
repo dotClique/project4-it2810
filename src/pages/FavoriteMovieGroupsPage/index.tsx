@@ -1,20 +1,16 @@
-import * as React from "react";
-import { StyleSheet, View } from "react-native";
-
-import { ParamList } from "types/navigation";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button, DataTable, Headline } from "react-native-paper";
-import LogOutButton from "components/LogOutButton";
-import { useState } from "react";
-import getStyles from "pages/MovieGroupsPage/styles";
-import { useAlias, useMutationCall } from "helpers/hooks";
-import { useMovieGroups } from "pages/MovieGroupsPage/utils";
-import { ADD_USER_TO_MOVIE_GROUP, REMOVE_USER_FROM_MOVIE_GROUP } from "helpers/graphql-queries";
+import MovieGroupWithUpcomingEvents from "components/MovieGroupsWithUpcomingEvents";
 import PageContainer from "components/PageContainer";
 import SearchInput from "components/SearchInput";
-import MovieGroupItem from "components/MovieGroupItem";
+import { REMOVE_USER_FROM_MOVIE_GROUP } from "helpers/graphql-queries";
+import { useAlias, useMutationCall } from "helpers/hooks";
 import { useFavoriteMovieGroups } from "pages/FavoriteMovieGroupsPage/utils";
-import MovieGroupWithUpcomingEvents from "components/MovieGroupsWithUpcomingEvents";
+import getStyles from "pages/MovieGroupsPage/styles";
+import * as React from "react";
+import { useState } from "react";
+import { View } from "react-native";
+import { Button, DataTable } from "react-native-paper";
+import { ParamList } from "types/navigation";
 
 type Props = StackScreenProps<ParamList, "FavoriteGroupsPage">;
 
@@ -44,6 +40,14 @@ export default function FavoriteMovieGroupsPage({ navigation }: Props) {
             }}
           >
             All Groups
+          </Button>
+          <Button
+            mode={"contained"}
+            onPress={() => {
+              navigation.navigate("CreateMovieGroupPage");
+            }}
+          >
+            Create new group
           </Button>
           <DataTable>
             <DataTable.Pagination
