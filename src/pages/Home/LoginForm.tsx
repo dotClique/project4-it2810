@@ -22,7 +22,7 @@ const validationSchema = yup.object({
 
 const loginNavigate = (navigation: StackNavigationProp<ParamList>, hasFavorites: boolean) => {
   if (hasFavorites) {
-    navigation.navigate("FavoriteGroupsPage");
+    navigation.navigate("MovieGroupsPage");
   } else {
     navigation.navigate("MovieGroupsPage");
   }

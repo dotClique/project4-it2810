@@ -16,7 +16,7 @@ export default function MovieGroupItem(props: Props) {
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.container}>
-        <Headline style={styles.title}>Hello</Headline>
+        <Headline style={styles.title}>{props.title}</Headline>
         <FavoriteIcon size={34} isFilled={props.favorite || false} />
       </View>
     </TouchableOpacity>
