@@ -3,7 +3,7 @@ import { useTheme } from "react-native-paper";
 import { HeartIcon as SolidHeart } from "react-native-heroicons/solid";
 import { HeartIcon as OutlinedHeart } from "react-native-heroicons/outline";
 import getStyles from "./styles";
-import { View } from "react-native";
+import { TouchableNativeFeedback, TouchableOpacity, View } from "react-native";
 
 type Props = {
   size: number;
@@ -20,5 +20,9 @@ export default function FavoriteIcon(props: Props) {
     <OutlinedHeart style={styles.icon} size={props.size} data-testid={"outlinedHeart"} />
   );
 
-  return <View style={styles.container}>{icon}</View>;
+  return (
+    <TouchableOpacity onPress={props.onClick} style={styles.container}>
+      {icon}
+    </TouchableOpacity>
+  );
 }

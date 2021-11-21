@@ -2,7 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { GET_COUNT_MOVIE_GROUPS, GET_MOVIE_GROUPS } from "../../helpers/graphql-queries";
 import { useQueryCall } from "helpers/hooks";
-import { MovieGroups, MovieGroupCount } from "helpers/types";
+import { MovieGroups, MovieGroupCount, MovieGroup } from "helpers/types";
 
 /**
  * Custom hook for getting movie groups with pagination and search
@@ -17,10 +17,10 @@ export function useMovieGroups(page: number, pageSize: number, searchString: str
 
   // Gets one page of movie groups
   const [movieGroupsQuery, { data: dataGroups, loading: loadingGroups }] =
-    useQueryCall<MovieGroups>(GET_MOVIE_GROUPS, true, undefined, { fetchPolicy: "network-only" });
+    useQueryCall<MovieGroups>(GET_MOVIE_GROUPS, true, undefined, true);
 
   // The array to store the movie groups in
-  const [movieGroups, setMovieGroups] = useState<MovieGroups>([]);
+  const [movieGroups, setMovieGroups] = useState<MovieGroup[]>([]);
 
   // The total page count
   const [pageCount, setPageCount] = useState(1);

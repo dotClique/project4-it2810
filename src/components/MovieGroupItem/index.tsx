@@ -14,11 +14,11 @@ export default function MovieGroupItem(props: Props) {
   const theme = useTheme();
   const styles = getStyles(theme);
   return (
-    <TouchableOpacity style={styles.container}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.container}>
         <Headline style={styles.title}>{props.title}</Headline>
-        <FavoriteIcon size={34} isFilled={props.favorite || false} />
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <FavoriteIcon size={34} isFilled={props.favorite || false} onClick={props.onToggleFavorite} />
+    </View>
   );
 }

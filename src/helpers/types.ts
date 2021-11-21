@@ -12,12 +12,13 @@ export type PopupParams = {
   type: PopupType;
 };
 
+export type MovieGroup = {
+  movieGroupId: string;
+  name: string;
+  userFavorites: { alias: string }[];
+};
 export type MovieGroups = {
-  movieGroups: {
-    movieGroupId: string;
-    name: string;
-    userFavorites: { alias: string }[];
-  }[];
+  movieGroups: MovieGroup[];
 };
 
 export type MovieGroupCount = {

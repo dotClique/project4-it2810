@@ -24,7 +24,6 @@ export default function MovieGroupsPage({ navigation }: Props) {
   const { movieGroups, pageCount, refetch } = useMovieGroups(page + 1, pageSize, searchValue);
   const [addUserToGroup] = useMutationCall(ADD_USER_TO_MOVIE_GROUP, refetch);
   const [removeUserFromGroup] = useMutationCall(REMOVE_USER_FROM_MOVIE_GROUP, refetch);
-  console.log(movieGroups);
   return (
     <PageContainer
       title={"Temp"}
@@ -52,7 +51,10 @@ export default function MovieGroupsPage({ navigation }: Props) {
                 onToggleFavorite={() => {
                   console.log("update");
                   // Send query toggling if the logged in user has the current group as a favorite
-                  const params = { movieGroupId: item.movieGroupId, useralias: alias };
+                  const params = {
+                    variables: { movieGroupId: item.movieGroupId, useralias: alias },
+                  };
+                  console.log(params);
                   return isFavorite ? removeUserFromGroup(params) : addUserToGroup(params);
                 }}
                 favorite={isFavorite}
@@ -69,7 +71,7 @@ export default function MovieGroupsPage({ navigation }: Props) {
           page={page}
           onPageChange={(newPage) => setPage(newPage)}
           numberOfItemsPerPage={pageSize}
-        ></DataTable.Pagination>
+        />
       </DataTable>
     </PageContainer>
   );
