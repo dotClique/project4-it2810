@@ -41,6 +41,14 @@ export default function FavoriteMovieGroupsPage({ navigation }: Props) {
           >
             All Groups
           </Button>
+          <Button
+            mode={"contained"}
+            onPress={() => {
+              navigation.navigate("CreateMovieGroupPage");
+            }}
+          >
+            Create new group
+          </Button>
           <DataTable>
             <DataTable.Pagination
               numberOfPages={pageCount}
