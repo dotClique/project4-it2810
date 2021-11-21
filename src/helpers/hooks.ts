@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { DocumentNode } from "graphql";
 import { useCallback, useEffect } from "react";
-import { ParamList } from "../types/navigation";
+import { ParamList } from "types/navigation";
 import { aliasVar } from "./reactive-vars";
 import { PopupParams } from "./types";
 
@@ -98,7 +98,7 @@ export function useQueryCall<DataType, Variables = { [key: string]: any }>(
 
   // If the call should not be lazy, perform the call immediately.
   useEffect(() => {
-    if (!lazy) performCall();
+    if (!lazy) performCall(variables);
   }, []);
 
   return [performCall, result];

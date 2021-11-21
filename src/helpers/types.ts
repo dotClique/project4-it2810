@@ -12,13 +12,13 @@ export type PopupParams = {
   type: PopupType;
 };
 
-export type MovieGroup = {
+export type MovieGroupInList = {
   movieGroupId: string;
   name: string;
   userFavorites: { alias: string }[];
 };
 export type MovieGroups = {
-  movieGroups: MovieGroup[];
+  movieGroups: MovieGroupInList[];
 };
 
 export type MovieGroupCount = {
@@ -43,4 +43,24 @@ export type UserData = {
 
 export type CreateUserOrCheckIfExists = {
   createUserOrCheckIfExists: UserData["user"];
+};
+
+export type MovieGroup = {
+  movieGroup: {
+    movieGroupId: string;
+    name: string;
+    description: string;
+  };
+};
+
+export type MovieGroupEvents = {
+  movieEvents: {
+    title: string;
+    description: string;
+    date: string;
+    location: string;
+    movieEventId: string;
+    userIsParticipant: boolean;
+  }[];
+  movieEventCount: number;
 };
