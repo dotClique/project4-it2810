@@ -31,6 +31,7 @@ export default function FavoriteMovieGroupsPage({ navigation }: Props) {
   return (
     <PageContainer
       title={"Favorite Groups"}
+      includeLogoutButton
       footer={
         <>
           <Button
