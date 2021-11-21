@@ -10,6 +10,7 @@ import { ParamList } from "types/navigation";
 import * as yup from "yup";
 import FormAutocomplete from "../../components/FormAutocomplete/index";
 import PageContainer from "../../components/PageContainer/index";
+import { View } from "react-native";
 
 type Props = StackScreenProps<ParamList, "CreateMovieEventPage">;
 
@@ -62,16 +63,18 @@ export default function CreateMovieEventPage({ navigation, route }: Props) {
         additionalRequestVariables={{ movieGroupId }}
       >
         {/* TODO: Use Autocomplete! */}
-        <FormAutocomplete
-          name={FormNames.title}
-          label="Title"
-          data={data?.movies ?? []}
-          keyExtractor={(item, index) => `${item.primarytitle}${index}`}
-          textExtractor={(item) => item.primarytitle}
-          onChangeText={(text: string) => {
-            setSearchString(text);
-          }}
-        />
+        <View style={{ position: "relative", marginBottom: 80 }}>
+          <FormAutocomplete
+            name={FormNames.title}
+            label="Title"
+            data={data?.movies ?? []}
+            keyExtractor={(item, index) => `${item.primarytitle}${index}`}
+            textExtractor={(item) => item.primarytitle}
+            onChangeText={(text: string) => {
+              setSearchString(text);
+            }}
+          />
+        </View>
         <FormField
           name={FormNames.description}
           label="Description of the movie event"

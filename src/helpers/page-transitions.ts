@@ -82,10 +82,6 @@ export function RotateIn({
 
 export const horizontalSwipeOptions: StackNavigationOptions = {
   cardStyleInterpolator: HorizontalSwipe,
-
-  gestureDirection: "horizontal",
-  gestureEnabled: true,
-  gestureResponseDistance: 10000,
   transitionSpec: {
     open: {
       animation: "timing",

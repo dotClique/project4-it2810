@@ -3,7 +3,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import LogOutButton from "components/LogOutButton";
 import * as React from "react";
 import { ReactNode, useEffect, useState } from "react";
-import { Keyboard, ScrollView, StyleSheet, View } from "react-native";
+import { Keyboard, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { Headline, Surface } from "react-native-paper";
 import { ParamList } from "types/navigation";
 
@@ -11,6 +11,7 @@ type Props = {
   children: ReactNode;
   title?: string;
   footer?: ReactNode;
+  disableScrollView?: boolean;
 };
 
 export default function PageContainer(props: Props) {
@@ -36,7 +37,13 @@ export default function PageContainer(props: Props) {
     <Surface style={styles.container}>
       {props.title && <Headline style={styles.title}>{props.title}</Headline>}
       <View style={styles.contentContainer}>
-        <ScrollView style={styles.content}>{props.children}</ScrollView>
+        {!props.disableScrollView ? (
+          <ScrollView style={styles.content}>{props.children}</ScrollView>
+        ) : (
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            {props.children}
+          </TouchableWithoutFeedback>
+        )}
       </View>
 
       <View style={styles.footer}>

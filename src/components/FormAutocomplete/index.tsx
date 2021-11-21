@@ -1,9 +1,9 @@
 import { useField } from "formik";
-import React, { useEffect, useState } from "react";
-import { TouchableOpacity, View } from "react-native";
-import Autocomplete from "react-native-autocomplete-input";
-import { Menu, Text, TextInput, useTheme } from "react-native-paper";
+import React, { useEffect, useRef, useState } from "react";
+import { View } from "react-native";
+import { Text, useTheme } from "react-native-paper";
 import getStyles from "./styles";
+import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
 
 type FormAutocompleteProps<DataType> = {
   name: string;
@@ -21,8 +21,8 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
   const styles = getStyles(theme, props.width);
   const [options, setOptions] = useState<string[]>([]);
   const [{ value, onChange, onBlur }, { error }] = useField<string>(props.name);
-  const [hideResults, setHideResults] = useState(true);
-
+  const searchRef = useRef(null);
+  const dropdownController = useRef(null);
   useEffect(() => {
     setOptions(props.data.map(props.textExtractor));
   }, [props.data]);
@@ -31,46 +31,49 @@ export default function FormAutocomplete<DataType>(props: FormAutocompleteProps<
     <View>
       <View style={styles.inputContainer}>
         <View style={styles.autocompleteContainer}>
-          <Autocomplete
-            hideResults={hideResults}
-            style={styles.autocomplete}
-            onBlur={onBlur(props.name)}
-            data={options.length === 1 && options[0] === value ? [] : props.data}
-            value={value}
-            onFocus={() => setHideResults(false)}
+          <AutocompleteDropdown
+            ref={searchRef}
+            controller={(controller) => {
+              dropdownController.current = controller;
+            }}
+            closeOnBlur={false}
+            closeOnSubmit={true}
+            dataSet={
+              options.length === 1 && options[0] === value
+                ? []
+                : props.data.map((item, index) => {
+                    return {
+                      id: props.keyExtractor(item, index),
+                      title: props.textExtractor(item),
+                    };
+                  })
+            }
+            onSelectItem={(item) => {
+              console.log(item);
+              if (item) {
+                console.log(item);
+                onChange(props.name)(item.title || "");
+                props.onChangeText?.(item.title || "");
+              }
+            }}
             onChangeText={(text) => {
               onChange(props.name)(text);
-              props.onChangeText?.(text);
+              console.log(text);
+              props.onChangeText && props.onChangeText(text);
             }}
-            flatListProps={{
-              keyExtractor: props.keyExtractor,
-              renderItem: ({ item }) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    const text = props.textExtractor(item);
-                    onChange(props.name)(text);
-                    props.onChangeText?.(text);
-                    setHideResults(true);
-                  }}
-                >
-                  <Menu.Item style={styles.itemText} title={props.textExtractor(item)} />
-                </TouchableOpacity>
-              ),
-              scrollEnabled: true,
-              style: styles.flatList,
+            debounce={600}
+            textInputProps={{
+              placeholder: "Type 3+ letters",
+              autoCorrect: false,
+              autoCapitalize: "none",
+              style: {
+                borderRadius: 25,
+                backgroundColor: "#383b42",
+                color: "#fff",
+                paddingLeft: 18,
+              },
             }}
-            renderTextInput={({ value, onChangeText, onBlur }) => (
-              <TextInput
-                value={value}
-                onChangeText={onChangeText}
-                onBlur={onBlur}
-                error={error != undefined}
-                label={props.label}
-                style={styles.textInput}
-                onFocus={() => setHideResults(false)}
-                //onEndEditing={() => setHideResults(true)}
-              />
-            )}
+            inputHeight={50}
           />
         </View>
         <Text style={styles.errorText}>{error}</Text>
