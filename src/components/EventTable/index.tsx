@@ -144,6 +144,7 @@ export default function EventTable(props: Props) {
             },
           });
         }}
+        label={`page ${page + 1} of ${Math.ceil(numberOfPages)}`}
         numberOfItemsPerPage={pageSize}
         onItemsPerPageChange={(ItemsPerPage) => {
           setPageSize(ItemsPerPage);
