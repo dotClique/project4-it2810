@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { ParamList } from "types/navigation";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button, DataTable, useTheme } from "react-native-paper";
+import { Button, DataTable } from "react-native-paper";
 import PageContainer from "components/PageContainer";
 import SearchInput from "components/SearchInput";
 import { useState } from "react";
